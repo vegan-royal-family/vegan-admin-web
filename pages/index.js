@@ -1,5 +1,12 @@
-const App = () => {
-  return <div>Hello, Next!</div>;
+import Login from "./Login";
+
+const Home = () => {
+  return (
+    <div>
+      Hello, Next!
+      <Login />
+    </div>
+  );
 };
 
-export default App;
+export default Home;
