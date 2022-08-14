@@ -1,14 +1,17 @@
 import Head from "next/head";
 import PropTypes from "prop-types";
+import { SessionProvider } from "next-auth/react";
 
-const App = ({ Component }) => {
+const App = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
         <meta charSet="utf-8" />
         <title>어쩌다보니 비건?!</title>
       </Head>
-      <Component />
+      <SessionProvider session={pageProps.session}>
+        <Component {...pageProps} />
+      </SessionProvider>
     </>
   );
 };

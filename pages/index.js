@@ -1,10 +1,13 @@
-import Login from "./Login";
+// import Login from "./Login";
+import Link from "next/link";
 
 const Home = () => {
   return (
     <div>
       Hello, Next!
-      <Login />
+      <Link href="/login">
+        <a>로그인</a>
+      </Link>
     </div>
   );
 };
