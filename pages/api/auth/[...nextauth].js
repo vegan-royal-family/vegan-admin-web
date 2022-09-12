@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import KakaoProvider from "next-auth/providers/kakao";
 import NaverProvider from "next-auth/providers/naver";
 import GoogleProvider from "next-auth/providers/google";
+import { getJwtToken } from "apis/auth";
 
 export default NextAuth({
   providers: [
@@ -19,23 +20,31 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, account }) {
-      // Persist the OAuth access_token to the token right after signin
-      if (account?.provider === "kakao" || account?.provider === "naver") {
-        token.accessToken = account.access_token;
-        token.provider = account.provider;
+    async signIn({ account }) {
+      try {
+        let token = null;
+        if (account.provider === "kakao") {
+          token = account.access_token;
+        }
+        if (account.provider === "naver") {
+          token = account.access_token;
+        }
+        if (account.provider === "google") {
+          token = account.id_token;
+        }
+        await getJwtToken({
+          provider: account.provider,
+          token,
+        });
+        console.log("로그인 성공!");
+        return true;
+      } catch (error) {
+        console.log(`로그인 실패. ERROR: ${error}`);
+        return false;
       }
-      if (account?.provider === "google") {
-        token.accessToken = account.id_token;
-        token.provider = account.provider;
-      }
-      return token;
     },
-    async session({ session, token }) {
-      // Send properties to the client, like an access_token from a provider.
-      session.accessToken = token.accessToken;
-      session.provider = token.provider;
-      return session;
+    async redirect({ baseUrl }) {
+      return baseUrl;
     },
   },
 });
