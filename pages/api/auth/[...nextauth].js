@@ -47,4 +47,7 @@ export default NextAuth({
       return baseUrl;
     },
   },
+  pages: {
+    signIn: "/test",
+  },
 });
