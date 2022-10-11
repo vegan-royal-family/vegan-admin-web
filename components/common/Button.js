@@ -38,16 +38,19 @@ export default function Button({
       --button-size-height: 36px;
       --button-padding: 6px 16px;
       --button-radius: 25px;
+      --button-gap: 6px;
     `,
     md: css`
       --button-size-height: 44px;
       --button-padding: 10px 24px;
       --button-radius: 25px;
+      --button-gap: 8px;
     `,
     lg: css`
       --button-size-height: 56px;
       --button-padding: 16px 24px;
       --button-radius: 30px;
+      --button-gap: 8px;
     `,
   };
 
@@ -89,6 +92,7 @@ const StyledButton = styled.button`
   ${(p) => p.theme.typography.weightBold};
   ${(p) => p.theme.typography.body2};
 
+  gap: var(--button-gap);
   padding: var(--button-padding);
   height: var(--button-size-height);
   border: none;
