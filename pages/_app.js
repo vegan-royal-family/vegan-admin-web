@@ -2,7 +2,7 @@ import Head from "next/head";
 import PropTypes from "prop-types";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@emotion/react";
-import { palette } from "../styles/palette";
+import theme from "../styles/theme";
 const App = ({ Component, pageProps }) => {
   return (
     <>
@@ -10,7 +10,7 @@ const App = ({ Component, pageProps }) => {
         <meta charSet="utf-8" />
         <title>어쩌다보니 비건?!</title>
       </Head>
-      <ThemeProvider theme={palette}>
+      <ThemeProvider theme={theme}>
         <SessionProvider session={pageProps.session}>
           <Component {...pageProps} />
         </SessionProvider>

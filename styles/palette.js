@@ -36,5 +36,9 @@ export const palette = {
       800: "#232F46",
       900: "#15203A",
     },
+    basic: {
+      black: "#0F172A",
+      white: "#FFFFFF",
+    },
   },
 };
