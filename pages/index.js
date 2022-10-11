@@ -8,7 +8,7 @@ const Home = () => {
   console.log("theme", theme);
   return (
     <div>
-      <div style={{ color: theme.colors.primary[600] }}>메인 페이지</div>
+      <div style={{ color: theme.palette.colors.primary[600] }}>메인 페이지</div>
       {session ? (
         <button type="button" onClick={() => signOut()}>
           로그아웃
