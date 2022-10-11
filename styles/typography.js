@@ -35,4 +35,25 @@ export const typography = {
     font-size: 1.125rem;
     line-height: 1.75rem;
   `,
+  body2: css`
+    font-size: 1rem;
+    line-height: 1.5rem;
+  `,
+  body3: css`
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  `,
+  body4: css`
+    font-size: 0.75rem;
+    line-height: 1rem;
+  `,
+  weightRegular: css`
+    font-weight: 400;
+  `,
+  weightmedium: css`
+    font-weight: 500;
+  `,
+  weightBold: css`
+    font-weight: 700;
+  `,
 };

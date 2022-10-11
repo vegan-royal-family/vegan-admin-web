@@ -61,6 +61,7 @@ export default function Button({
       disabled={disabled}
       colorStyle={colorStyle}
       sizeStyle={sizeStyle}
+      theme={theme}
     >
       {label ?? children}
     </StyledButton>
@@ -84,6 +85,10 @@ const StyledButton = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  ${(p) => p.theme.typography.weightBold};
+  ${(p) => p.theme.typography.body2};
+
   padding: var(--button-padding);
   height: var(--button-size-height);
   border: none;
