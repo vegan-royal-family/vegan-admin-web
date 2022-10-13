@@ -8,17 +8,25 @@ export default function Chip({ size = "md", active = false, children }) {
   const SIZES = {
     sm: css`
       --chip-padding: 2px 8px;
-      --chip-font-size: ${theme.typography.body4};
     `,
     md: css`
       --chip-padding: 8px 12px;
-      --chip-font-size: ${theme.typography.body3};
     `,
   };
-  // TODO: font 적용 어뜨케 하지..
+
+  const typography = {
+    sm: theme.typography.body4,
+    md: theme.typography.body3,
+  };
+
   const sizeStyle = SIZES[size];
   return (
-    <StyledChip theme={theme} active={active} sizeStyle={sizeStyle}>
+    <StyledChip
+      theme={theme}
+      active={active}
+      sizeStyle={sizeStyle}
+      typography={typography[size]}
+    >
       {children}
     </StyledChip>
   );
@@ -31,6 +39,7 @@ Chip.propTypes = {
 
 const StyledChip = styled.div`
   ${(p) => p.sizeStyle}
+  ${(p) => p.typography}
 
   display: flex;
   flex-direction: row;
@@ -48,7 +57,13 @@ const StyledChip = styled.div`
   background: ${(p) =>
     p.active ? p.theme.palette.colors.primary[500] : p.theme.palette.colors.gray[200]};
   &:hover {
-    background: ${(p) => p.theme.palette.colors.primary[100]};
-    color: ${(p) => p.theme.palette.colors.gray[600]};
+    color: ${(p) =>
+      p.active
+        ? p.theme.palette.colors.basic["white"]
+        : p.theme.palette.colors.gray[600]};
+    background: ${(p) =>
+      p.active
+        ? p.theme.palette.colors.primary[500]
+        : p.theme.palette.colors.primary[100]};
   }
 `;
