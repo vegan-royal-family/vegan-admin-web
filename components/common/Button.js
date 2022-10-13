@@ -59,8 +59,6 @@ export default function Button({
 
   return (
     <StyledButton
-      type={type}
-      size={size}
       disabled={disabled}
       colorStyle={colorStyle}
       sizeStyle={sizeStyle}

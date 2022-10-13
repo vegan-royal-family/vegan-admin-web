@@ -1,12 +1,12 @@
-import Button from "../components/common/Button";
+import TextButton from "../components/common/TextButton";
 
 export default {
-  title: "components/Button",
-  component: Button,
+  title: "components/TextButton",
+  component: TextButton,
 };
 
 const Template = (args) => {
-  return <Button {...args} />;
+  return <TextButton {...args} />;
 };
 
 export const PrimaryButton = Template.bind({});
