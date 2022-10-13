@@ -50,7 +50,7 @@ export const typography = {
   weightRegular: css`
     font-weight: 400;
   `,
-  weightmedium: css`
+  weightMedium: css`
     font-weight: 500;
   `,
   weightBold: css`
