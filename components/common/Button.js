@@ -85,7 +85,7 @@ const StyledButton = styled.button`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
+  cursor: ${(p) => (p.disabled ? `default` : `pointer`)};
 
   ${(p) => p.theme.typography.weightBold};
   ${(p) => p.theme.typography.body2};
