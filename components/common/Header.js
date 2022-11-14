@@ -39,6 +39,7 @@ const Menu = styled.div`
 const MenuItem = styled.div`
   ${(p) => p.theme.typography.body1}
   ${(p) => p.theme.typography.weightBold}
+  color: ${(p) => p.theme.palette.colors.basic.black}
 `;
 
 const LoginButton = styled.button`

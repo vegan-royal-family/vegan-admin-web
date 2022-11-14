@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import Header from "components/common/Header";
+import Footer from "components/common/Footer";
 
 const Home = () => {
   const { data: session } = useSession();
@@ -16,6 +17,7 @@ const Home = () => {
           <a>로그인</a>
         </Link>
       )}
+      <Footer />
     </div>
   );
 };
