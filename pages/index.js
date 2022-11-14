@@ -1,14 +1,12 @@
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
-import { useTheme } from "@emotion/react";
+import Header from "components/common/Header";
 
 const Home = () => {
-  const theme = useTheme();
   const { data: session } = useSession();
-  console.log("theme", theme);
   return (
     <div>
-      <div style={{ color: theme.palette.colors.primary[600] }}>메인 페이지</div>
+      <Header />
       {session ? (
         <button type="button" onClick={() => signOut()}>
           로그아웃
