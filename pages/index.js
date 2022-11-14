@@ -8,15 +8,6 @@ const Home = () => {
   return (
     <div>
       <Header />
-      {session ? (
-        <button type="button" onClick={() => signOut()}>
-          로그아웃
-        </button>
-      ) : (
-        <Link href="/login">
-          <a>로그인</a>
-        </Link>
-      )}
       <Footer />
     </div>
   );

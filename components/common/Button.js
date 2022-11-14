@@ -63,6 +63,7 @@ export default function Button({
       colorStyle={colorStyle}
       sizeStyle={sizeStyle}
       theme={theme}
+      {...props}
     >
       {label ?? children}
     </StyledButton>
