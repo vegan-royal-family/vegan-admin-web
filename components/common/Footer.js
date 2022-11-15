@@ -28,4 +28,7 @@ const StyledFooter = styled.footer`
   color: ${(p) => p.theme.palette.colors.basic.black};
 
   text-align: center;
+
+  ${(p) => p.theme.typography.body4}
+  ${(p) => p.theme.typography.weightRegular}
 `;
