@@ -5,7 +5,7 @@ import { ThemeProvider } from "@emotion/react";
 import theme from "../styles/theme";
 import "styles/reset.css";
 const App = ({ Component, pageProps }) => {
-  // commit test
+  // commit1
   return (
     <>
       <Head>
