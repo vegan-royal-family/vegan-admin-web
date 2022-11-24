@@ -35,15 +35,22 @@ Input.propTypes = {
 const StyledInput = styled.input`
   ${(p) => p.theme.typography.body2}
   ${(p) => p.theme.typography.weightRegular}
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
   display: flex;
   align-items: center;
-  padding: 16px;
+  padding: 10px 16px;
   border: 1px solid ${(p) => p.theme.palette.colors.gray[300]};
-  border-radius: 12px;
+  border-radius: 5px;
+  color: ${(p) => p.theme.palette.colors.basic.black};
+
   ::placeholder {
     color: ${(p) => p.theme.palette.colors.gray[400]};
   }
   &:focus {
-    outline: 1px solid var(--primary-1);
+    outline: 1px solid ${(p) => p.theme.palette.colors.gray[500]};
   }
 `;
