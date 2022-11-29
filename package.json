@@ -1,6 +1,6 @@
 {
   "name": "vegan-project-web",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -21,8 +21,6 @@
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
-    "@storybook/react": "^6.5.9",
-    "@svgr/webpack": "^6.4.0",
     "axios": "^0.27.2",
     "next": "^12.2.3",
     "next-auth": "^4.10.3",
@@ -34,6 +32,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.18.9",
+    "@storybook/react": "^6.5.9",
     "@storybook/addon-actions": "^6.5.9",
     "@storybook/addon-essentials": "^6.5.9",
     "@storybook/addon-interactions": "^6.5.9",
@@ -41,6 +40,7 @@
     "@storybook/builder-webpack5": "^6.5.9",
     "@storybook/manager-webpack5": "^6.5.9",
     "@storybook/testing-library": "0.0.13",
+    "@svgr/webpack": "^6.4.0",
     "babel-loader": "^8.2.5"
   }
 }
