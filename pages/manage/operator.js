@@ -115,9 +115,14 @@ export default function operator() {
                     <Input width={260} />
                   </div>
                   <div
-                    style={{ display: "flex", flexDirection: "column", gap: 8 }}
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 8,
+                      justifyContent: "flex-end",
+                    }}
                   >
-                    <div className="label">이메일</div>
+                    {/* <div className="label">이메일</div> */}
                     <Input width={260} />
                   </div>
                 </Flex>
@@ -133,6 +138,21 @@ export default function operator() {
                     style={{ display: "flex", flexDirection: "column", gap: 8 }}
                   >
                     <div className="label">비밀번호</div>
+                    <Input width={260} />
+                  </div>
+                </Flex>
+
+                <Flex>
+                  <div
+                    style={{ display: "flex", flexDirection: "column", gap: 8 }}
+                  >
+                    <div className="label">등록일시</div>
+                    <Input width={260} />
+                  </div>
+                  <div
+                    style={{ display: "flex", flexDirection: "column", gap: 8 }}
+                  >
+                    <div className="label">수정일시</div>
                     <Input width={260} />
                   </div>
                 </Flex>
@@ -157,7 +177,7 @@ export default function operator() {
 const Flex = styled.div`
   display: flex;
   align-items: stretch;
-  gap: 16px;
+  justify-content: space-between;
   margin-top: 18px;
 `;
 
