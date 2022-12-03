@@ -51,6 +51,7 @@ const StyledInput = styled.input`
     color: ${(p) => p.theme.palette.colors.gray[400]};
   }
   &:focus {
-    outline: 1px solid ${(p) => p.theme.palette.colors.gray[500]};
+    border: 1px solid ${(p) => p.theme.palette.colors.gray[500]};
+    outline: none;
   }
 `;
