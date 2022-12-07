@@ -41,4 +41,26 @@ export const palette = {
       white: "#FFFFFF",
     },
   },
+  status: {
+    danger: {
+      100: "#FFE6DD",
+      500: "#FF5667",
+      700: "#B72B53",
+    },
+    success: {
+      100: "#E2FDD5",
+      500: "#31D834",
+      700: "#189B31",
+    },
+    warning: {
+      100: "#FFF7DA",
+      500: "#FFBE47",
+      700: "#B77823",
+    },
+    info: {
+      100: "#D6F5FF",
+      500: "#35A4FF",
+      700: "#1A5FB7",
+    },
+  },
 };
