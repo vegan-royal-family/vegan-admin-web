@@ -4,7 +4,7 @@ import { css, useTheme } from "@emotion/react";
 
 export default function Button({
   type = "primary",
-  size = "medium",
+  size = "md",
   label,
   disabled,
   width,
