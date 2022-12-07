@@ -8,19 +8,27 @@ export default function Input({
   placeholder = "필드를 입력해주세요.",
   width,
   height,
+  label,
+  disabled = false,
+  helpText,
   ...props
 }) {
   const theme = useTheme();
   return (
-    <StyledInput
-      type={"text"}
-      placeholder={placeholder}
-      onChange={onChange}
-      value={value}
-      theme={theme}
-      style={{ width, height }}
-      {...props}
-    />
+    <LabelField theme={theme} disabled={disabled}>
+      {label && <div className="label">{label}</div>}
+      <StyledInput
+        type={"text"}
+        placeholder={placeholder}
+        onChange={onChange}
+        value={value}
+        theme={theme}
+        style={{ width, height }}
+        disabled={disabled}
+        {...props}
+      />
+      {helpText && <div className="helpText">{helpText}</div>}
+    </LabelField>
   );
 }
 
@@ -30,7 +38,28 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  label: PropTypes.string,
+  disabled: PropTypes.bool,
+  helpText: PropTypes.string,
 };
+
+const LabelField = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  .label {
+    ${(p) => p.theme.typography.body3}
+    ${(p) => p.theme.typography.weightMedium}
+     color: ${(p) =>
+      p.disabled ? p.theme.palette.colors.gray[300] : p.theme.palette.colors.basic.black}
+  }
+  .helpText {
+    ${(p) => p.theme.typography.body4}
+    ${(p) => p.theme.typography.weightRegular}
+    color: ${(p) =>
+      p.disabled ? p.theme.palette.colors.gray[300] : p.theme.palette.colors.gray[500]};
+  }
+`;
 
 const StyledInput = styled.input`
   ${(p) => p.theme.typography.body2}
@@ -53,5 +82,11 @@ const StyledInput = styled.input`
   &:focus {
     border: 1px solid ${(p) => p.theme.palette.colors.gray[500]};
     outline: none;
+  }
+
+  :disabled {
+    background-color: ${(p) => p.theme.palette.colors.gray[50]};
+    border: 1px solid ${(p) => p.theme.palette.colors.gray[200]};
+    color: ${(p) => p.theme.palette.colors.gray[400]};
   }
 `;

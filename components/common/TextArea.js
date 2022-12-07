@@ -8,19 +8,25 @@ export default function TextArea({
   placeholder = "필드를 입력해주세요.",
   width,
   height,
+  label,
+  helpText,
   ...props
 }) {
   const theme = useTheme();
 
   return (
-    <StyledTextArea
-      placeholder={placeholder}
-      onChange={onChange}
-      value={value}
-      theme={theme}
-      style={{ width, height }}
-      {...props}
-    />
+    <LabelField theme={theme}>
+      {label && <div className="label">{label}</div>}
+      <StyledTextArea
+        placeholder={placeholder}
+        onChange={onChange}
+        value={value}
+        theme={theme}
+        style={{ width, height }}
+        {...props}
+      />
+      {helpText && <div className="helpText">{helpText}</div>}
+    </LabelField>
   );
 }
 
@@ -30,7 +36,25 @@ TextArea.propTypes = {
   placeholder: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  helpText: PropTypes.string,
 };
+
+const LabelField = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  .label {
+    ${(p) => p.theme.typography.body3}
+    ${(p) => p.theme.typography.weightMedium}
+     color: ${(p) => p.theme.palette.colors.basic.black}
+  }
+  .helpText {
+    ${(p) => p.theme.typography.body4}
+    ${(p) => p.theme.typography.weightRegular}
+    color: ${(p) => p.theme.palette.colors.gray[400]};
+    text-align: right;
+  }
+`;
 
 const StyledTextArea = styled.textarea`
   display: flex;
