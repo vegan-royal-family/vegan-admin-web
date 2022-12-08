@@ -1,11 +1,11 @@
+import "styles/reset.css";
 import Head from "next/head";
 import PropTypes from "prop-types";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@emotion/react";
 import theme from "../styles/theme";
-import "styles/reset.css";
+
 const App = ({ Component, pageProps }) => {
-  // commit1
   return (
     <>
       <Head>
