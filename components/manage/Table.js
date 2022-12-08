@@ -1,16 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { useRowSelect, usePagination, useTable } from "react-table";
+import range from "utils/range.js";
 
 const defaultPageGroupCount = 4;
-
-export const range = (len) => {
-  const arr = [];
-  for (let i = 0; i < len; i++) {
-    arr.push(i);
-  }
-  return arr;
-};
 
 const Pagination = (props) => {
   const {
