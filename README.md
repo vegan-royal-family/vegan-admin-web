@@ -13,3 +13,4 @@
 - 테스팅: jest, cypress (미설치)
 - 타입관리: prop-types
 - 소셜계정관리: next-auth
+- 날짜: dayjs

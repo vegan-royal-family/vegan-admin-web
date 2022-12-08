@@ -1,16 +1,7 @@
-import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
-import Header from "components/common/Header";
-import Footer from "components/common/Footer";
+import Layout from "components/common/Layout";
 
 const Home = () => {
-  const { data: session } = useSession();
-  return (
-    <div>
-      <Header />
-      <Footer />
-    </div>
-  );
+  return <Layout>메인 페이지</Layout>;
 };
 
 export default Home;

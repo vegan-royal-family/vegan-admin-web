@@ -5,34 +5,38 @@ import Logo from "assets/Logo/Logo.png";
 import Button from "./Button";
 import Link from "next/link";
 
-export default function Header() {
+const UserProfileBox = ({ session }) => {
+  return (
+    <>
+      {session ? (
+        <button onClick={() => signOut()}>로그아웃</button>
+      ) : (
+        <Link href="/login">
+          <Button type="primary" size="sm">
+            로그인
+          </Button>
+        </Link>
+      )}
+    </>
+  );
+};
+
+export default function Header({ menus }) {
   const theme = useTheme();
   const { data: session } = useSession();
+
   return (
     <StyledHeader theme={theme}>
-      <img src={Logo.src} alt={"어쩌다보니비건 로고"} width={200} height={28} />
+      <img src={Logo.src} alt="어쩌다보니비건 로고" width={200} height={28} />
       <Menu>
-        <Link href="/manage/restaurant">
-          <MenuItem>채식 식당 관리</MenuItem>
-        </Link>
-        <Link href="/manage/recipe">
-          <MenuItem>채식 레시피 관리</MenuItem>
-        </Link>
-        <Link href="/manage/member">
-          <MenuItem>회원 관리</MenuItem>
-        </Link>
-        <Link href="/manage/operator">
-          <MenuItem>운영자 관리</MenuItem>
-        </Link>
-        {session ? (
-          <button onClick={() => signOut()}>로그아웃</button>
-        ) : (
-          <Link href="/login">
-            <Button type={"primary"} size={"sm"}>
-              로그인
-            </Button>
-          </Link>
-        )}
+        {menus.map((item) => {
+          return (
+            <Link href={item?.route}>
+              <MenuItem>{item?.name}</MenuItem>
+            </Link>
+          );
+        })}
+        <UserProfileBox session={session} />
       </Menu>
     </StyledHeader>
   );

@@ -2,29 +2,27 @@ import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { css, useTheme } from "@emotion/react";
 
-export default function Input({
+export default function TextArea({
   value,
   onChange,
   placeholder = "필드를 입력해주세요.",
   width,
   height,
   label,
-  disabled = false,
   helpText,
   ...props
 }) {
   const theme = useTheme();
+
   return (
-    <LabelField theme={theme} disabled={disabled}>
+    <LabelField theme={theme}>
       {label && <div className="label">{label}</div>}
-      <StyledInput
-        type={"text"}
+      <StyledTextArea
         placeholder={placeholder}
         onChange={onChange}
         value={value}
         theme={theme}
         style={{ width, height }}
-        disabled={disabled}
         {...props}
       />
       {helpText && <div className="helpText">{helpText}</div>}
@@ -32,14 +30,12 @@ export default function Input({
   );
 }
 
-Input.propTypes = {
+TextArea.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  label: PropTypes.string,
-  disabled: PropTypes.bool,
   helpText: PropTypes.string,
 };
 
@@ -50,31 +46,31 @@ const LabelField = styled.div`
   .label {
     ${(p) => p.theme.typography.body3}
     ${(p) => p.theme.typography.weightMedium}
-     color: ${(p) =>
-      p.disabled ? p.theme.palette.colors.gray[300] : p.theme.palette.colors.basic.black}
+     color: ${(p) => p.theme.palette.colors.basic.black}
   }
   .helpText {
     ${(p) => p.theme.typography.body4}
     ${(p) => p.theme.typography.weightRegular}
-    color: ${(p) =>
-      p.disabled ? p.theme.palette.colors.gray[300] : p.theme.palette.colors.gray[500]};
+    color: ${(p) => p.theme.palette.colors.gray[400]};
+    text-align: right;
   }
 `;
 
-const StyledInput = styled.input`
-  ${(p) => p.theme.typography.body2}
-  ${(p) => p.theme.typography.weightRegular}
+const StyledTextArea = styled.textarea`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 16px;
+
+  background: ${(p) => p.theme.palette.colors.basic.white};
+  border: 1px solid ${(p) => p.theme.palette.colors.gray[300]};
+  border-radius: 5px;
+
+  resize: none;
 
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-
-  display: flex;
-  align-items: center;
-  padding: 10px 16px;
-  border: 1px solid ${(p) => p.theme.palette.colors.gray[300]};
-  border-radius: 5px;
-  color: ${(p) => p.theme.palette.colors.basic.black};
 
   ::placeholder {
     color: ${(p) => p.theme.palette.colors.gray[400]};
@@ -82,11 +78,5 @@ const StyledInput = styled.input`
   &:focus {
     border: 1px solid ${(p) => p.theme.palette.colors.gray[500]};
     outline: none;
-  }
-
-  :disabled {
-    background-color: ${(p) => p.theme.palette.colors.gray[50]};
-    border: 1px solid ${(p) => p.theme.palette.colors.gray[200]};
-    color: ${(p) => p.theme.palette.colors.gray[400]};
   }
 `;
