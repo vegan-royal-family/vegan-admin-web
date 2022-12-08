@@ -40,7 +40,13 @@ export default function operator() {
                     }}
                   >
                     <img src={Img.src} alt={"아바타"} />
-                    <div style={{ display: "flex", gap: 20, flexDirection: "column" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: 20,
+                        flexDirection: "column",
+                      }}
+                    >
                       <Button size="sm" type={"tertiary"} label={"수정"} />
                       <Button size="sm" type={"secondary"} label={"삭제"} />
                     </div>
@@ -94,7 +100,11 @@ export default function operator() {
                 </Flex>
 
                 <Flex>
-                  <Input width={260} placeholder={"010-0000-0000"} label={"연락처"} />
+                  <Input
+                    width={260}
+                    placeholder={"010-0000-0000"}
+                    label={"연락처"}
+                  />
                   <div
                     style={{
                       display: "flex",
