@@ -30,6 +30,8 @@ const FormContainer = styled.div`
 `;
 
 export default function ManagerLoginPage() {
+  // TODO 1. 로그인 후 manager 페이지로 리다이렉션
+
   return (
     <LoginPageWrapper>
       <div style={{ height: 100 }}></div>
