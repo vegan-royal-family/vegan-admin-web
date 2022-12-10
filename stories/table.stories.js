@@ -1,4 +1,5 @@
-import Table from "../components/manage/Table";
+import Table from "components/manage/Table";
+import range from "utils/range";
 
 export default {
   title: "components/Table",
@@ -6,7 +7,11 @@ export default {
 };
 
 const Template = (args) => {
-  return <Table {...args} />;
+  return (
+    <div style={{ padding: "15px 20px" }}>
+      <Table {...args} />
+    </div>
+  );
 };
 
 const columns = [
@@ -56,7 +61,7 @@ const columns = [
     Header: "수신 동의",
     cellRender: (data) => {
       // <AlarmIcon />;
-      return <div />;
+      return <div>{data?.useNotification}</div>;
     },
     options: {
       width: "100px",
@@ -100,13 +105,11 @@ const columns = [
   },
 ];
 
-export const AdminTable = Template.bind({});
-AdminTable.args = {
-  columns,
-  data: [
-    {
-      id: 1,
-      nickname: `꽈뚜루빠뚜루밥밥디라라-${1}`,
+const getData = (len) => {
+  return range(len).map((id) => {
+    return {
+      id: id,
+      nickname: `꽈뚜루빠뚜루밥밥디라라-${id}`,
       vegetarianType: "폴로",
       gender: "male",
       birth: "2001-04-11",
@@ -114,6 +117,12 @@ AdminTable.args = {
       createdAt: "2022-12-31 23:47:58",
       useNotification: true,
       warningCount: 0,
-    },
-  ],
+    };
+  });
+};
+
+export const AdminTable = Template.bind({});
+AdminTable.args = {
+  columns,
+  data: getData(90),
 };
