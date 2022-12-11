@@ -2,6 +2,9 @@ import styled from "@emotion/styled";
 import { typography } from "styles/typography";
 import Input from "components/common/Input";
 import Button from "components/common/Button";
+import { useSetRecoilState } from "recoil";
+import { authState } from "states/auth";
+import { useState } from "react";
 
 const LoginPageWrapper = styled.div`
   display: flex;
@@ -29,8 +32,20 @@ const FormContainer = styled.div`
   }
 `;
 
+const login = (loginInfo, setAuthState) => {
+  try {
+    // TODO: API 요청
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export default function ManagerLoginPage() {
-  // TODO 1. 로그인 후 manager 페이지로 리다이렉션
+  const setAuthState = useSetRecoilState(authState);
+  const [loginInfo, setLoginInfo] = useState({
+    id: null,
+    password: null,
+  });
 
   return (
     <LoginPageWrapper>
@@ -39,7 +54,7 @@ export default function ManagerLoginPage() {
       <FormContainer>
         <Input id="id_field" label="아이디" />
         <Input id="pwd_field" label="비밀번호" />
-        <Button onClick={() => {}}>로그인</Button>
+        <Button onClick={() => login(loginInfo, setAuthState)}>로그인</Button>
       </FormContainer>
     </LoginPageWrapper>
   );

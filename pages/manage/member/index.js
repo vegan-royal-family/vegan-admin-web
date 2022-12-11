@@ -9,3 +9,11 @@ export default function MemberManagementPage() {
 
   return <Layout>여기는 {myName} 회원 관리</Layout>;
 }
+
+/*
+export async function getServerSideProps(context) {
+  return {
+    props: {}, // Will be passed to the page component as props
+  };
+}
+*/
