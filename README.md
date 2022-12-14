@@ -1,7 +1,5 @@
 # vegan-project-web
 
-## test
-
 ## 실행
 
 - storybook: npm run storybook
