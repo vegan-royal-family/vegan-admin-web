@@ -14,9 +14,7 @@ export default function MemberManagementPage() {
     <Layout>
       <button onClick={onHistoryOpen}>경고 및 비활성화 이력 조회</button>
       {showHistory && (
-        <RightSheet visible={showHistory}>
-          <TitleBox theme={theme}>경고 및 비활성화 이력 조회</TitleBox>
-
+        <RightSheet visible={showHistory} title={"경고 및 비활성화 이력 조회"}>
           <ButtonBox>
             <Button type={"secondary"} size={"md"} onClick={onHistoryClose}>
               닫기

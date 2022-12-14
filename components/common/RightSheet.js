@@ -1,17 +1,26 @@
+import PropTypes from "prop-types";
 import { keyframes, useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 
-export default function RightSheet({ children, visible }) {
+export default function RightSheet({ children, visible, title }) {
   const theme = useTheme();
 
   return (
     <Overlay>
       <StyledPopup visible={visible} theme={theme}>
-        <Container theme={theme}>{children}</Container>
+        <Container theme={theme}>
+          {title && <div className="title">{title}</div>}
+          {children}
+        </Container>
       </StyledPopup>
     </Overlay>
   );
 }
+
+RightSheet.propTypes = {
+  visible: PropTypes.bool,
+  title: PropTypes.string,
+};
 
 const Overlay = styled.div`
   width: 100vw;
@@ -28,6 +37,16 @@ const Overlay = styled.div`
 
 const Container = styled.div`
   padding: 40px 100px;
+
+  .title {
+    ${(p) => p.theme.typography.body1}
+    ${(p) => p.theme.typography.weightBold}
+    
+    color: ${(p) => p.theme.palette.colors.basic.black};
+    margin-bottom: 62px;
+
+    text-align: left;
+  }
 `;
 
 const StyledPopup = styled.div`
@@ -43,6 +62,16 @@ const StyledPopup = styled.div`
 
   box-shadow: 0 0 0 100vw rgba(0, 0, 0, 0.5);
   border-radius: 48px 0px 0px 48px;
+`;
+
+const TitleBox = styled.div`
+  ${(p) => p.theme.typography.body1}
+  ${(p) => p.theme.typography.weightBold}
+  
+  color: ${(p) => p.theme.palette.colors.basic.black};
+  margin-bottom: 62px;
+
+  text-align: left;
 `;
 
 const fadeInLeft = keyframes`
