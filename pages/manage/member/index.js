@@ -1,45 +1,33 @@
-import { useTheme } from "@emotion/react";
-import styled from "@emotion/styled";
-import Button from "components/common/Button";
 import Layout from "components/common/Layout";
-import RightSheet from "components/common/RightSheet";
 import { useState } from "react";
+import MemberHistory from "components/manage/member/history";
+import MemberWarningForm from "components/manage/member/warningForm";
+import MemberInactiveForm from "components/manage/member/inactiveForm";
 
 export default function MemberManagementPage() {
-  const theme = useTheme();
   const [showHistory, setShowHistory] = useState(false);
+  const [showWarning, setShowWarning] = useState(false);
+  const [showInactive, setShowInactive] = useState(false);
+
   const onHistoryOpen = () => setShowHistory(true);
   const onHistoryClose = () => setShowHistory(false);
+  const onWarningOpen = () => setShowWarning(true);
+  const onWarningClose = () => setShowWarning(false);
+  const onInactiveOpen = () => setShowInactive(true);
+  const onInactiveClose = () => setShowInactive(false);
+
   return (
     <Layout>
       <button onClick={onHistoryOpen}>경고 및 비활성화 이력 조회</button>
-      {showHistory && (
-        <RightSheet visible={showHistory} title={"경고 및 비활성화 이력 조회"}>
-          <ButtonBox>
-            <Button type={"secondary"} size={"md"} onClick={onHistoryClose}>
-              닫기
-            </Button>
-          </ButtonBox>
-        </RightSheet>
+      {showHistory && <MemberHistory visible={showHistory} onClose={onHistoryClose} />}
+      <button onClick={onWarningOpen}>회원 경고 등록</button>
+      {showWarning && (
+        <MemberWarningForm visible={showWarning} onClose={onWarningClose} />
+      )}
+      <button onClick={onInactiveOpen}>회원 비활성화 등록</button>
+      {showInactive && (
+        <MemberInactiveForm visible={showInactive} onClose={onInactiveClose} />
       )}
     </Layout>
   );
 }
-
-const TitleBox = styled.div`
-  ${(p) => p.theme.typography.body1}
-  ${(p) => p.theme.typography.weightBold}
-  
-  color: ${(p) => p.theme.palette.colors.basic.black};
-  margin-bottom: 62px;
-
-  text-align: left;
-`;
-const ButtonBox = styled.div`
-  gap: 14px;
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  bottom: 40px;
-  width: calc(100% - 200px);
-`;
