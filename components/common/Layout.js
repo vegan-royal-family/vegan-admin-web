@@ -2,8 +2,8 @@ import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import Footer from "./Footer";
 import Header from "./Header";
-import { useRecoilValue } from "recoil";
-import { authState } from "states/auth";
+// import { useRecoilValue } from "recoil";
+// import { authState } from "states/auth";
 
 const adminMenus = [
   { route: "/manage/restaurant", name: "채식 식당 관리" },
