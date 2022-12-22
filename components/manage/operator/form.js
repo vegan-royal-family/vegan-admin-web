@@ -39,8 +39,16 @@ export default function OperatorForm({ visible, onClose }) {
             gap: 18,
           }}
         >
-          <Input width={260} placeholder={"이름을 입력하세요."} label={"이름"} />
-          <Input width={260} placeholder={"소속을 선택하세요."} label={"소속"} />
+          <Input
+            width={260}
+            placeholder={"이름을 입력하세요."}
+            label={"이름"}
+          />
+          <Input
+            width={260}
+            placeholder={"소속을 선택하세요."}
+            label={"소속"}
+          />
         </div>
       </Flex>
       <Flex>
@@ -52,8 +60,16 @@ export default function OperatorForm({ visible, onClose }) {
             justifyContent: "space-between",
           }}
         >
-          <Input width={260} placeholder={"직책을 선택하세요."} label={"직책"} />
-          <Input width={260} placeholder={"권한을 선택하세요."} label={"권한"} />
+          <Input
+            width={260}
+            placeholder={"직책을 선택하세요."}
+            label={"직책"}
+          />
+          <Input
+            width={260}
+            placeholder={"권한을 선택하세요."}
+            label={"권한"}
+          />
         </div>
         <TextArea
           width={260}
@@ -78,7 +94,11 @@ export default function OperatorForm({ visible, onClose }) {
       </Flex>
 
       <Flex>
-        <Input width={260} placeholder={"영문 4자 이상 입력하세요."} label={"아이디"} />
+        <Input
+          width={260}
+          placeholder={"영문 4자 이상 입력하세요."}
+          label={"아이디"}
+        />
         <Input
           width={260}
           placeholder={"8자 이상 입력하세요.(영문, 숫자 혼용)"}
@@ -129,6 +149,6 @@ const ButtonBox = styled.div`
   width: calc(100% - 200px);
 `;
 const ImgBox = styled.img`
-  width: 144px;
-  height: 144px;
+  width: 186px;
+  height: 186px;
 `;
