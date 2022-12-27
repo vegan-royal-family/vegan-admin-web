@@ -15,6 +15,7 @@ export default function Button({
   const COLORS = {
     primary: css`
       --button-bg-color: ${theme.palette.colors.primary[500]};
+      --button-border-color: ${theme.palette.colors.primary[500]};
       --button-hover-color: ${theme.palette.colors.primary[600]};
       --button-loading-color: ${theme.palette.colors.primary[400]};
       --button-disabled-color: ${theme.palette.colors.primary[100]};
@@ -24,11 +25,22 @@ export default function Button({
     `,
     secondary: css`
       --button-bg-color: ${theme.palette.colors.gray[200]};
+      --button-border-color: ${theme.palette.colors.gray[200]};
       --button-hover-color: ${theme.palette.colors.gray[300]};
       --button-loading-color: ${theme.palette.colors.gray[200]};
       --button-disabled-color: ${theme.palette.colors.gray[200]};
       --button-font-color: ${theme.palette.colors.gray[900]};
       --button-loading-font-color: ${theme.palette.colors.gray[600]};
+      --button-disabled-font-color: ${theme.palette.colors.gray[400]};
+    `,
+    tertiary: css`
+      --button-bg-color: ${theme.palette.colors.basic["white"]};
+      --button-border-color: ${theme.palette.colors.gray[300]};
+      --button-hover-color: ${theme.palette.colors.gray[100]};
+      --button-loading-color: ${theme.palette.colors.basic["white"]};
+      --button-disabled-color: ${theme.palette.colors.basic["white"]};
+      --button-font-color: ${theme.palette.colors.gray[900]};
+      --button-loading-font-color: ${theme.palette.colors.gray[500]};
       --button-disabled-font-color: ${theme.palette.colors.gray[400]};
     `,
   };
@@ -83,9 +95,6 @@ const StyledButton = styled.button`
   ${(p) => p.sizeStyle}
 
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
   cursor: ${(p) => (p.disabled ? `default` : `pointer`)};
 
   ${(p) => p.theme.typography.weightBold};
@@ -94,7 +103,7 @@ const StyledButton = styled.button`
   gap: var(--button-gap);
   padding: var(--button-padding);
   height: var(--button-size-height);
-  border: none;
+  border: 1px solid var(--button-border-color);
   border-radius: var(--button-radius);
   background: var(--button-bg-color);
   color: var(--button-font-color);
