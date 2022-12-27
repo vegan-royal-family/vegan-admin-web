@@ -15,8 +15,9 @@ export default function OperatorForm({ visible, onClose }) {
           style={{
             display: "flex",
             alignItems: "center",
+            justifyContent: "center",
             width: "100%",
-            gap: 30,
+            gap: 14,
           }}
         >
           <ImgBox src={Img.src} alt={"아바타"} />
