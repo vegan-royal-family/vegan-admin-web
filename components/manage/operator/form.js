@@ -36,6 +36,7 @@ export default function OperatorForm({ visible, onClose }) {
           style={{
             width: "100%",
             display: "flex",
+            alignItems: "flex-end",
             flexDirection: "column",
             gap: 18,
           }}
