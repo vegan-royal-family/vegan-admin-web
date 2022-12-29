@@ -31,7 +31,7 @@ export default function Header({ menus }) {
       <Menu>
         {menus.map((item) => {
           return (
-            <Link href={item?.route}>
+            <Link href={item?.route} key={item.route}>
               <MenuItem>{item?.name}</MenuItem>
             </Link>
           );
