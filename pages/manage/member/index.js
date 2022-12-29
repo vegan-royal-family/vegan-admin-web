@@ -5,7 +5,7 @@ import MemberWarningForm from "components/manage/member/warningForm";
 import MemberInactiveForm from "components/manage/member/inactiveForm";
 
 export default function MemberManagementPage() {
-  const [showHistory, setShowHistory] = useState(true);
+  const [showHistory, setShowHistory] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
   const [showInactive, setShowInactive] = useState(false);
 
