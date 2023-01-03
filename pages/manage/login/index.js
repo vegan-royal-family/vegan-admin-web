@@ -5,6 +5,7 @@ import Button from "components/common/Button";
 import { useSetRecoilState } from "recoil";
 import { authState } from "states/auth";
 import { useState } from "react";
+import { managerLogin } from "apis/auth";
 
 const LoginPageWrapper = styled.div`
   display: flex;
@@ -32,9 +33,11 @@ const FormContainer = styled.div`
   }
 `;
 
-const login = (loginInfo, setAuthState) => {
+const login = async (id, password, setAuthState) => {
   try {
     // TODO: API 요청
+    const res = await managerLogin({ id, password });
+    console.log("요청 성공!", res);
   } catch (e) {
     console.log(e);
   }
@@ -43,8 +46,8 @@ const login = (loginInfo, setAuthState) => {
 export default function ManagerLoginPage() {
   const setAuthState = useSetRecoilState(authState);
   const [loginInfo, setLoginInfo] = useState({
-    id: null,
-    password: null,
+    id: "test01",
+    password: "Qwer1234@",
   });
 
   return (
@@ -54,7 +57,13 @@ export default function ManagerLoginPage() {
       <FormContainer>
         <Input id="id_field" label="아이디" />
         <Input id="pwd_field" label="비밀번호" />
-        <Button onClick={() => login(loginInfo, setAuthState)}>로그인</Button>
+        <Button
+          onClick={() =>
+            login(loginInfo?.id, loginInfo?.password, setAuthState)
+          }
+        >
+          로그인
+        </Button>
       </FormContainer>
     </LoginPageWrapper>
   );
