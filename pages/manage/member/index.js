@@ -19,9 +19,7 @@ export default function MemberManagementPage() {
   return (
     <Layout>
       <button onClick={onHistoryOpen}>경고 및 비활성화 이력 조회</button>
-      {showHistory && (
-        <MemberHistory visible={showHistory} onClose={onHistoryClose} />
-      )}
+      {showHistory && <MemberHistory visible={showHistory} onClose={onHistoryClose} />}
       <button onClick={onWarningOpen}>회원 경고 등록</button>
       {showWarning && (
         <MemberWarningForm visible={showWarning} onClose={onWarningClose} />

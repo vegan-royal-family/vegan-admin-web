@@ -10,13 +10,14 @@ import RightSheet from "components/common/RightSheet";
 export default function OperatorForm({ visible, onClose }) {
   return (
     <RightSheet visible={visible} title={"상세 정보 조회"}>
-      <Flex>
+      <GridItem>
         <div
           style={{
             display: "flex",
             alignItems: "center",
+            justifyContent: "center",
             width: "100%",
-            gap: 30,
+            gap: 14,
           }}
         >
           <ImgBox src={Img.src} alt={"아바타"} />
@@ -31,55 +32,20 @@ export default function OperatorForm({ visible, onClose }) {
             <Button size="sm" type={"secondary"} label={"삭제"} />
           </div>
         </div>
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            gap: 18,
-          }}
-        >
-          <Input
-            width={260}
-            placeholder={"이름을 입력하세요."}
-            label={"이름"}
-          />
-          <Input
-            width={260}
-            placeholder={"소속을 선택하세요."}
-            label={"소속"}
-          />
-        </div>
-      </Flex>
-      <Flex>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 18,
-            justifyContent: "space-between",
-          }}
-        >
-          <Input
-            width={260}
-            placeholder={"직책을 선택하세요."}
-            label={"직책"}
-          />
-          <Input
-            width={260}
-            placeholder={"권한을 선택하세요."}
-            label={"권한"}
-          />
-        </div>
+        <FlexColItem>
+          <Input width={260} placeholder={"이름을 입력하세요."} label={"이름"} />
+          <Input width={260} placeholder={"소속을 선택하세요."} label={"소속"} />
+        </FlexColItem>
+        <FlexColItem>
+          <Input width={260} placeholder={"직책을 선택하세요."} label={"직책"} />
+          <Input width={260} placeholder={"권한을 선택하세요."} label={"권한"} />
+        </FlexColItem>
         <TextArea
           width={260}
           height={114}
           placeholder={"직무 내용을 입력하세요."}
           label={"직무"}
         />
-      </Flex>
-
-      <Flex>
         <Input width={260} placeholder={"010-0000-0000"} label={"연락처"} />
         <div
           style={{
@@ -91,22 +57,12 @@ export default function OperatorForm({ visible, onClose }) {
         >
           <Input width={260} placeholder={"abc@vegan.or.kr"} />
         </div>
-      </Flex>
-
-      <Flex>
-        <Input
-          width={260}
-          placeholder={"영문 4자 이상 입력하세요."}
-          label={"아이디"}
-        />
+        <Input width={260} placeholder={"영문 4자 이상 입력하세요."} label={"아이디"} />
         <Input
           width={260}
           placeholder={"8자 이상 입력하세요.(영문, 숫자 혼용)"}
           label={"비밀번호"}
         />
-      </Flex>
-
-      <Flex>
         <Input
           width={260}
           label={"등록일시"}
@@ -119,8 +75,7 @@ export default function OperatorForm({ visible, onClose }) {
           disabled={true}
           value={dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")}
         />
-      </Flex>
-
+      </GridItem>
       <ButtonBox>
         <Button type={"primary"} size={"md"} onClick={onClose}>
           수정
@@ -133,11 +88,18 @@ export default function OperatorForm({ visible, onClose }) {
   );
 }
 
-const Flex = styled.div`
+const FlexColItem = styled.div`
   display: flex;
-  align-items: stretch;
-  justify-content: space-between;
-  margin-top: 18px;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+`;
+
+const GridItem = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 16px;
+  row-gap: 22px;
 `;
 
 const ButtonBox = styled.div`
