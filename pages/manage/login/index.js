@@ -28,6 +28,8 @@ const FormContainer = styled.div`
   border-radius: 8px;
   border: 1px solid #dadce0;
   & > button {
+    display: flex;
+    justify-content: center;
     width: 100% !important;
     border-radius: 5px;
   }
@@ -35,9 +37,7 @@ const FormContainer = styled.div`
 
 const login = async (id, password, setAuthState) => {
   try {
-    // TODO: API 요청
     const res = await managerLogin({ id, password });
-    console.log("요청 성공!", res);
   } catch (e) {
     console.log(e);
   }
@@ -46,8 +46,8 @@ const login = async (id, password, setAuthState) => {
 export default function ManagerLoginPage() {
   const setAuthState = useSetRecoilState(authState);
   const [loginInfo, setLoginInfo] = useState({
-    id: "test01",
-    password: "Qwer1234@",
+    id: "",
+    password: "",
   });
 
   return (
