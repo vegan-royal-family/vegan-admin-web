@@ -1,11 +1,12 @@
+import React from "react";
 import styled from "@emotion/styled";
 import { typography } from "styles/typography";
-import Input from "components/common/Input";
-import Button from "components/common/Button";
 import { useSetRecoilState } from "recoil";
 import { authState } from "states/auth";
 import { useState } from "react";
 import { managerLogin } from "apis/auth";
+import Input from "components/common/Input";
+import Button from "components/common/Button";
 
 const LoginPageWrapper = styled.div`
   display: flex;
@@ -35,7 +36,7 @@ const FormContainer = styled.div`
   }
 `;
 
-const login = async (id, password, setAuthState) => {
+const login = async (id: string, password: string, setAuthState: Function) => {
   try {
     const res = await managerLogin({ id, password });
   } catch (e) {
@@ -55,12 +56,31 @@ export default function ManagerLoginPage() {
       <div style={{ height: 100 }}></div>
       <div className="title">관리자 로그인</div>
       <FormContainer>
-        <Input id="id_field" label="아이디" />
-        <Input id="pwd_field" label="비밀번호" />
+        <Input
+          id="id_field"
+          label="아이디"
+          value={undefined}
+          onChange={undefined}
+          width={undefined}
+          height={undefined}
+          helpText={undefined}
+        />
+        <Input
+          id="pwd_field"
+          label="비밀번호"
+          value={undefined}
+          onChange={undefined}
+          width={undefined}
+          height={undefined}
+          helpText={undefined}
+        />
         <Button
           onClick={() =>
             login(loginInfo?.id, loginInfo?.password, setAuthState)
           }
+          label={undefined}
+          disabled={undefined}
+          width={undefined}
         >
           로그인
         </Button>
