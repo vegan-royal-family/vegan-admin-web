@@ -1,12 +1,13 @@
 import styled from "@emotion/styled";
-import { css, useTheme } from "@emotion/react";
-import { useEffect } from "react";
+import { css, SerializedStyles, useTheme } from "@emotion/react";
+import { ReactNode, ReactElement, useEffect } from "react";
 import {
   fadeoutToRightAnimation,
   fadeinFromRightAnimation,
 } from "styles/animation";
+import Icon from "components/common/Icon";
 
-const StyledToast = styled.div`
+const StyledToast = styled.div<{ typeStyle: SerializedStyles }>`
   visibility: visible;
   position: fixed;
   z-index: 1;
@@ -22,8 +23,13 @@ const StyledToast = styled.div`
   display: flex;
   flex-direction: column;
   .title {
+    display: flex;
+    align-items: center;
     ${(props) => props.theme.typography.body3}
     font-weight: 500;
+    .content {
+      padding-left: 6px;
+    }
   }
   .desc {
     ${(props) => props.theme.typography.body4}
@@ -56,6 +62,9 @@ const successStyle = css`
   .desc {
     margin-top: 6px;
   }
+  svg > path {
+    fill: #31d834;
+  }
 `;
 
 const errorStyle = css`
@@ -65,25 +74,44 @@ const errorStyle = css`
   .desc {
     margin-top: 6px;
   }
+  svg > path {
+    fill: #ff5667;
+  }
 `;
 
-export default function Toast({
-  type = "info",
-  title = "",
-  desc = "",
-  onClose,
-}) {
-  const theme = useTheme();
+type ToastProps = {
+  type: string;
+  title: string;
+  desc: string;
+  onClose: Function;
+};
 
-  let typeStyle;
+export default function Toast(props: ToastProps): ReactElement {
+  const theme = useTheme();
+  const { type = "info", title = "", desc = "", onClose } = props;
+
+  let titleContent: ReactNode = title;
+  let typeStyle: SerializedStyles;
   switch (type) {
     case "info":
       typeStyle = infoStyle;
       break;
     case "success":
+      titleContent = (
+        <>
+          <Icon icon="check-one" size="sm" />
+          <span className="content">{title}</span>
+        </>
+      );
       typeStyle = successStyle;
       break;
     case "error":
+      titleContent = (
+        <>
+          <Icon icon="attention" size="sm" />
+          <span className="content">{title}</span>
+        </>
+      );
       typeStyle = errorStyle;
       break;
     default:
@@ -98,7 +126,7 @@ export default function Toast({
 
   return (
     <StyledToast theme={theme} typeStyle={typeStyle}>
-      <span className="title">{title}</span>
+      <div className="title">{titleContent}</div>
       {desc && <span className="desc">{desc}</span>}
     </StyledToast>
   );
