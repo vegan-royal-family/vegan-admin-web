@@ -80,9 +80,9 @@ const errorStyle = css`
 `;
 
 type ToastProps = {
-  type: string;
+  type?: string;
   title: string;
-  desc: string;
+  desc?: string;
   onClose: Function;
 };
 

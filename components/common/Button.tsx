@@ -1,6 +1,17 @@
-import PropTypes from "prop-types";
+import { MouseEvent, PropsWithChildren } from "react";
 import styled from "@emotion/styled";
-import { css, useTheme } from "@emotion/react";
+import { css, useTheme, SerializedStyles } from "@emotion/react";
+
+type ButtonProps = {
+  id?: string;
+  className?: string;
+  type?: "primary" | "secondary" | "tertiary";
+  size?: "sm" | "md" | "lg";
+  label?: string;
+  disabled?: boolean;
+  width?: string | number;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => any;
+};
 
 export default function Button({
   type = "primary",
@@ -10,7 +21,7 @@ export default function Button({
   width,
   children,
   ...props
-}) {
+}: PropsWithChildren<ButtonProps>) {
   const theme = useTheme();
   const COLORS = {
     primary: css`
@@ -83,15 +94,10 @@ export default function Button({
   );
 }
 
-Button.propTypes = {
-  type: PropTypes.oneOf(["primary", "secondary", "tertiary"]),
-  size: PropTypes.oneOf(["sm", "md", "lg"]),
-  label: PropTypes.string,
-  disabled: PropTypes.bool,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-};
-
-const StyledButton = styled.button`
+const StyledButton = styled.button<{
+  colorStyle: SerializedStyles;
+  sizeStyle: SerializedStyles;
+}>`
   ${(p) => p.colorStyle}
   ${(p) => p.sizeStyle}
 
