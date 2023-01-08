@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 import AddOne from "../../assets/icon/add-one.svg";
 import Apple from "../../assets/icon/apple.svg";
 import AttentionFilled from "../../assets/icon/attention-filled.svg";
@@ -37,7 +35,13 @@ import StarFilled from "../../assets/icon/star_filled.svg";
 import Star from "../../assets/icon/star.svg";
 import Up from "../../assets/icon/up.svg";
 
-export default function Icon({ icon, size = "md", fill }) {
+type IconProps = {
+  icon: string;
+  size: "xxs" | "xs" | "sm" | "md" | "lg" | "xl";
+  fill?: string;
+};
+
+export default function Icon({ icon, size = "md", fill }: IconProps) {
   const SIZES = {
     xxs: 12,
     xs: 16,
@@ -47,6 +51,7 @@ export default function Icon({ icon, size = "md", fill }) {
     xl: 40,
   };
 
+  // TODO: svg 색을 바꾸려면 svg > path > fill을 바꿔줘야함
   const args = {
     width: SIZES[size],
     height: SIZES[size],
@@ -131,8 +136,3 @@ export default function Icon({ icon, size = "md", fill }) {
       return;
   }
 }
-
-Icon.propTypes = {
-  icon: PropTypes.string,
-  size: PropTypes.oneOf(["xxs", "xs", "sm", "md", "lg", "xl"]),
-};

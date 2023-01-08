@@ -1,14 +1,18 @@
 import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
-import { useSession, signOut } from "next-auth/react";
+import { signOut } from "next-auth/react";
+import Link from "next/link";
+import { useRecoilValue } from "recoil";
+import { authState } from "states/auth";
 import Logo from "assets/Logo/Logo.png";
 import Button from "./Button";
-import Link from "next/link";
 
-const UserProfileBox = ({ session }) => {
+type MenuType = Array<{ route: string; name: string }>;
+
+const UserProfileBox = ({ profile }) => {
   return (
     <>
-      {session ? (
+      {profile?.id ? (
         <button onClick={() => signOut()}>로그아웃</button>
       ) : (
         <Link href="/login">
@@ -21,9 +25,10 @@ const UserProfileBox = ({ session }) => {
   );
 };
 
-export default function Header({ menus }) {
+export default function Header(props: { menus: MenuType }) {
+  const { menus } = props;
   const theme = useTheme();
-  const { data: session } = useSession();
+  const authValue = useRecoilValue(authState);
 
   return (
     <StyledHeader theme={theme}>
@@ -36,7 +41,7 @@ export default function Header({ menus }) {
             </Link>
           );
         })}
-        <UserProfileBox session={session} />
+        <UserProfileBox profile={authValue} />
       </Menu>
     </StyledHeader>
   );
@@ -66,8 +71,4 @@ const MenuItem = styled.div`
   ${(p) => p.theme.typography.weightBold}
   color: ${(p) => p.theme.palette.colors.basic.black};
   cursor: pointer;
-`;
-
-const LoginButton = styled.button`
-  margin-left: 26px;
 `;

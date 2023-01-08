@@ -1,12 +1,13 @@
-import React from "react";
-import styled from "@emotion/styled";
-import { typography } from "styles/typography";
+import React, { useState, ChangeEvent } from "react";
 import { useSetRecoilState } from "recoil";
-import { authState } from "states/auth";
-import { useState } from "react";
+import styled from "@emotion/styled";
+import { useTheme } from "@emotion/react";
+import { useRouter } from "next/router";
 import { managerLogin } from "apis/auth";
+import { authState } from "states/auth";
 import Input from "components/common/Input";
 import Button from "components/common/Button";
+import Toast from "components/common/Toast";
 
 const LoginPageWrapper = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ const LoginPageWrapper = styled.div`
   padding: 30px;
   .title {
     padding: 20px;
-    ${typography?.heading5}
+    ${(p) => p.theme.typography?.heading5}
   }
   #id_field,
   #pwd_field {
@@ -36,55 +37,82 @@ const FormContainer = styled.div`
   }
 `;
 
-const login = async (id: string, password: string, setAuthState: Function) => {
-  try {
-    const res = await managerLogin({ id, password });
-  } catch (e) {
-    console.log(e);
-  }
-};
-
 export default function ManagerLoginPage() {
-  const setAuthState = useSetRecoilState(authState);
-  const [loginInfo, setLoginInfo] = useState({
-    id: "",
-    password: "",
-  });
+  const theme = useTheme();
+  const router = useRouter();
+
+  const setAuthProfileState = useSetRecoilState(authState);
+  const [loginData, setLoginDataState] = useState<{
+    id: string;
+    password: string;
+  }>({ id: "", password: "" });
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
+  const inputChangeHandler = (
+    e: ChangeEvent<HTMLInputElement>,
+    name: "id" | "password"
+  ) => {
+    setLoginDataState((value) => {
+      return {
+        ...value,
+        [name]: e.target.value,
+      };
+    });
+  };
+
+  const loginHandler = async () => {
+    try {
+      // TODO: id, password 값 검증을 해야할까?
+      const res = await managerLogin(loginData);
+
+      //const profileData = res?.data;
+      const profileData = {
+        id: 1,
+        name: "사용자1",
+        profileImage: null,
+        authorization: null,
+      };
+
+      // 사용자 프로필 데이터 저장
+      setAuthProfileState(profileData);
+
+      // 메인 페이지로 리다이렉션
+      router.replace("/manage");
+    } catch (e) {
+      // 에러 토스트 표시
+      setErrorMessage("로그인에 실패하였습니다.");
+      console.log(e);
+    }
+  };
 
   return (
-    <LoginPageWrapper>
-      <div style={{ height: 100 }}></div>
-      <div className="title">관리자 로그인</div>
-      <FormContainer>
-        <Input
-          id="id_field"
-          label="아이디"
-          value={undefined}
-          onChange={undefined}
-          width={undefined}
-          height={undefined}
-          helpText={undefined}
+    <>
+      {errorMessage && (
+        <Toast
+          type="error"
+          title={errorMessage}
+          onClose={() => {
+            setErrorMessage("");
+          }}
         />
-        <Input
-          id="pwd_field"
-          label="비밀번호"
-          value={undefined}
-          onChange={undefined}
-          width={undefined}
-          height={undefined}
-          helpText={undefined}
-        />
-        <Button
-          onClick={() =>
-            login(loginInfo?.id, loginInfo?.password, setAuthState)
-          }
-          label={undefined}
-          disabled={undefined}
-          width={undefined}
-        >
-          로그인
-        </Button>
-      </FormContainer>
-    </LoginPageWrapper>
+      )}
+      <LoginPageWrapper theme={theme}>
+        <div style={{ height: 100 }}></div>
+        <div className="title">관리자 로그인</div>
+        <FormContainer>
+          <Input
+            id="id_field"
+            label="아이디"
+            onChange={(e) => inputChangeHandler(e, "id")}
+          />
+          <Input
+            id="pwd_field"
+            label="비밀번호"
+            onChange={(e) => inputChangeHandler(e, "password")}
+          />
+          <Button onClick={loginHandler}>로그인</Button>
+        </FormContainer>
+      </LoginPageWrapper>
+    </>
   );
 }

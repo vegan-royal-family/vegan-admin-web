@@ -1,6 +1,19 @@
-import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-import { css, useTheme } from "@emotion/react";
+import { useTheme } from "@emotion/react";
+import { ChangeEvent, ReactElement } from "react";
+
+type InputTypes = {
+  id?: string;
+  className?: string;
+  value?: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => any;
+  placeholder?: string;
+  width?: string | number;
+  height?: string | number;
+  label?: string;
+  disabled?: boolean;
+  helpText?: string;
+};
 
 export default function Input({
   value,
@@ -12,7 +25,7 @@ export default function Input({
   disabled = false,
   helpText,
   ...props
-}) {
+}: InputTypes): ReactElement {
   const theme = useTheme();
   return (
     <LabelField theme={theme} disabled={disabled}>
@@ -32,18 +45,7 @@ export default function Input({
   );
 }
 
-Input.propTypes = {
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  placeholder: PropTypes.string,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  label: PropTypes.string,
-  disabled: PropTypes.bool,
-  helpText: PropTypes.string,
-};
-
-const LabelField = styled.div`
+const LabelField = styled.div<{ disabled: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -51,13 +53,17 @@ const LabelField = styled.div`
     ${(p) => p.theme.typography.body3}
     ${(p) => p.theme.typography.weightMedium}
      color: ${(p) =>
-      p.disabled ? p.theme.palette.colors.gray[300] : p.theme.palette.colors.basic.black}
+      p.disabled
+        ? p.theme.palette.colors.gray[300]
+        : p.theme.palette.colors.basic.black}
   }
   .helpText {
     ${(p) => p.theme.typography.body4}
     ${(p) => p.theme.typography.weightRegular}
     color: ${(p) =>
-      p.disabled ? p.theme.palette.colors.gray[300] : p.theme.palette.colors.gray[500]};
+      p.disabled
+        ? p.theme.palette.colors.gray[300]
+        : p.theme.palette.colors.gray[500]};
   }
 `;
 
