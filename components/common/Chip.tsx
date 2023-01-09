@@ -1,8 +1,17 @@
-import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-import { css, useTheme } from "@emotion/react";
+import { css, SerializedStyles, useTheme } from "@emotion/react";
+import { PropsWithChildren } from "react";
 
-export default function Chip({ size = "md", active = false, children }) {
+type ChipPropTypes = {
+  size: "sm" | "md";
+  active: boolean;
+};
+
+export default function Chip({
+  size = "md",
+  active = false,
+  children,
+}: PropsWithChildren<ChipPropTypes>) {
   const theme = useTheme();
 
   const SIZES = {
@@ -32,12 +41,11 @@ export default function Chip({ size = "md", active = false, children }) {
   );
 }
 
-Chip.propTypes = {
-  size: PropTypes.oneOf(["sm", "md"]),
-  active: PropTypes.bool,
-};
-
-const StyledChip = styled.div`
+const StyledChip = styled.div<{
+  sizeStyle: SerializedStyles;
+  typography: SerializedStyles;
+  active: boolean;
+}>`
   ${(p) => p.sizeStyle}
   ${(p) => p.typography}
 
@@ -52,10 +60,14 @@ const StyledChip = styled.div`
   ${(p) => p.theme.typography.weightMedium};
 
   color: ${(p) =>
-    p.active ? p.theme.palette.colors.basic["white"] : p.theme.palette.colors.gray[500]};
+    p.active
+      ? p.theme.palette.colors.basic["white"]
+      : p.theme.palette.colors.gray[500]};
 
   background: ${(p) =>
-    p.active ? p.theme.palette.colors.primary[500] : p.theme.palette.colors.gray[200]};
+    p.active
+      ? p.theme.palette.colors.primary[500]
+      : p.theme.palette.colors.gray[200]};
   &:hover {
     color: ${(p) =>
       p.active

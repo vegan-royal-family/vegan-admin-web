@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import PropTypes from "prop-types";
+import { PropsWithChildren } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -16,7 +16,7 @@ const userMenus = [
   { route: "/my-dictionary", name: "내 사전" },
 ];
 
-export default function Layout({ children }) {
+export default function Layout({ children }: PropsWithChildren<{}>) {
   const router = useRouter();
 
   // "/manage" 라우트는 관리자만 접근할 수 있는 경로임
@@ -37,7 +37,3 @@ export default function Layout({ children }) {
     );
   }
 }
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-};

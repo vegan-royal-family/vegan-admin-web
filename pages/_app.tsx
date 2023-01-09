@@ -1,12 +1,13 @@
 import "styles/reset.css";
+import { Session } from "next-auth";
+import type { AppProps } from "next/app";
 import Head from "next/head";
-import PropTypes from "prop-types";
 import { RecoilRoot } from "recoil";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@emotion/react";
 import theme from "../styles/theme";
 
-const App = ({ Component, pageProps }) => {
+const App = ({ Component, pageProps }: AppProps<{ session: Session }>) => {
   return (
     <>
       <Head>
@@ -22,10 +23,6 @@ const App = ({ Component, pageProps }) => {
       </RecoilRoot>
     </>
   );
-};
-
-App.propTypes = {
-  Component: PropTypes.elementType.isRequired,
 };
 
 export default App;
