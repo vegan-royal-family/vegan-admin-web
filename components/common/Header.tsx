@@ -1,28 +1,14 @@
 import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
-import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRecoilValue } from "recoil";
 import { authState } from "states/auth";
 import Logo from "assets/Logo/Logo.png";
-import Button from "./Button";
 
 type MenuType = Array<{ route: string; name: string }>;
 
-const UserProfileBox = ({ profile }) => {
-  return (
-    <>
-      {profile?.id ? (
-        <button onClick={() => signOut()}>로그아웃</button>
-      ) : (
-        <Link href="/login">
-          <Button type="primary" size="sm">
-            로그인
-          </Button>
-        </Link>
-      )}
-    </>
-  );
+const UserProfileBox = () => {
+  return <button onClick={() => {}}>로그아웃</button>;
 };
 
 export default function Header(props: { menus: MenuType }) {
@@ -41,7 +27,7 @@ export default function Header(props: { menus: MenuType }) {
             </Link>
           );
         })}
-        <UserProfileBox profile={authValue} />
+        {authValue?.id && <UserProfileBox />}
       </Menu>
     </StyledHeader>
   );

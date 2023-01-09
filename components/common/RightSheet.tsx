@@ -1,8 +1,17 @@
-import PropTypes from "prop-types";
 import { keyframes, useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
+import { PropsWithChildren } from "react";
 
-export default function RightSheet({ children, visible, title }) {
+type RightSheetPropsType = {
+  visible?: boolean;
+  title?: string;
+};
+
+export default function RightSheet({
+  children,
+  visible,
+  title,
+}: PropsWithChildren<RightSheetPropsType>) {
   const theme = useTheme();
 
   return (
@@ -16,11 +25,6 @@ export default function RightSheet({ children, visible, title }) {
     </Overlay>
   );
 }
-
-RightSheet.propTypes = {
-  visible: PropTypes.bool,
-  title: PropTypes.string,
-};
 
 const Overlay = styled.div`
   width: 100vw;
@@ -49,7 +53,7 @@ const Container = styled.div`
   }
 `;
 
-const StyledPopup = styled.div`
+const StyledPopup = styled.div<{ visible: boolean }>`
   position: absolute;
   top: 0;
   right: 0;

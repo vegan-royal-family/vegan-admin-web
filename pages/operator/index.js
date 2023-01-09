@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Layout from "components/common/Layout";
-import OperatorForm from "components/manage/operator/form";
+import OperatorForm from "components/operator/form";
 
 export default function operator() {
   const [showDetailInfo, setShowDetailInfo] = useState(false);

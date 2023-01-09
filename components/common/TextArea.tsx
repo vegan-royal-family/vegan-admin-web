@@ -1,6 +1,18 @@
-import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-import { css, useTheme } from "@emotion/react";
+import { useTheme } from "@emotion/react";
+import { ChangeEvent } from "react";
+
+type TextAreaPropsType = {
+  id?: string;
+  className?: string;
+  value?: string;
+  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => any;
+  placeholder?: string;
+  width?: string | number;
+  height?: string | number;
+  helpText?: string;
+  label?: string;
+};
 
 export default function TextArea({
   value,
@@ -11,7 +23,7 @@ export default function TextArea({
   label,
   helpText,
   ...props
-}) {
+}: TextAreaPropsType) {
   const theme = useTheme();
 
   return (
@@ -29,15 +41,6 @@ export default function TextArea({
     </LabelField>
   );
 }
-
-TextArea.propTypes = {
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  placeholder: PropTypes.string,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  helpText: PropTypes.string,
-};
 
 const LabelField = styled.div`
   display: flex;

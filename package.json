@@ -1,5 +1,5 @@
 {
-  "name": "vegan-project-web",
+  "name": "vegan-admin-web",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
@@ -24,9 +24,7 @@
     "axios": "~0.27.2",
     "dayjs": "^1.11.7",
     "next": "^12.2.3",
-    "next-auth": "^4.10.3",
     "path": "~0.12.7",
-    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-query": "^4.0.0",

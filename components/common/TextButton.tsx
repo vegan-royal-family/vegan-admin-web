@@ -1,6 +1,16 @@
-import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-import { css, useTheme } from "@emotion/react";
+import { css, SerializedStyles, useTheme } from "@emotion/react";
+import { PropsWithChildren } from "react";
+
+type TextButtonPropsType = {
+  id?: string;
+  className?: string;
+  type?: "primary" | "secondary";
+  size?: "sm" | "md" | "lg";
+  label?: string;
+  disabled?: boolean;
+  width?: string | number;
+};
 
 export default function TextButton({
   type = "primary",
@@ -9,8 +19,7 @@ export default function TextButton({
   disabled,
   width,
   children,
-  ...props
-}) {
+}: PropsWithChildren<TextButtonPropsType>) {
   const theme = useTheme();
   const COLORS = {
     primary: css`
@@ -60,7 +69,11 @@ export default function TextButton({
   );
 }
 
-const StyledTextButton = styled.button`
+const StyledTextButton = styled.button<{
+  colorStyle: SerializedStyles;
+  sizeStyle: SerializedStyles;
+  typography: SerializedStyles;
+}>`
   ${(p) => p.colorStyle}
   ${(p) => p.sizeStyle}
   ${(p) => p.typography}
@@ -88,11 +101,3 @@ const StyledTextButton = styled.button`
     color: var(--button-disabled-color);
   }
 `;
-
-TextButton.propTypes = {
-  type: PropTypes.oneOf(["primary", "secondary"]),
-  size: PropTypes.oneOf(["sm", "md", "lg"]),
-  label: PropTypes.string,
-  disabled: PropTypes.bool,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-};
