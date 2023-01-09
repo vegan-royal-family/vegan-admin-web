@@ -1,4 +1,4 @@
-import Chip from "../components/common/Chip";
+import Chip from "components/common/Chip";
 
 export default {
   title: "components/Chip",

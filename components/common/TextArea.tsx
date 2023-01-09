@@ -6,7 +6,7 @@ type TextAreaPropsType = {
   id?: string;
   className?: string;
   value?: string;
-  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => any;
+  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => any;
   placeholder?: string;
   width?: string | number;
   height?: string | number;

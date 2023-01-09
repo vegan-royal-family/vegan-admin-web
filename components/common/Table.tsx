@@ -166,7 +166,7 @@ const TableStyles = styled.div`
   }
 `;
 
-const TableHeaderTh = styled.th`
+const TableHeaderTh = styled.th<{ textAlign: string; width: string | number }>`
   border-bottom: 1px solid rgba(224, 224, 224, 1);
   font-weight: 500 !important;
   margin: 0;
@@ -177,7 +177,7 @@ const TableHeaderTh = styled.th`
   width: ${(props) => props?.width};
 `;
 
-const TableBodyTd = styled.td`
+const TableBodyTd = styled.td<{ textAlign: string }>`
   margin: 0;
   padding: 5px 10px;
   box-sizing: border-box;
@@ -185,9 +185,12 @@ const TableBodyTd = styled.td`
   white-space: nowrap;
 `;
 
-const IndeterminateCheckbox = React.forwardRef(
-  ({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef();
+const IndeterminateCheckbox = React.forwardRef<HTMLInputElement>(
+  (
+    { indeterminate, ...rest }: { indeterminate: boolean },
+    ref: React.MutableRefObject<HTMLInputElement | null>
+  ) => {
+    const defaultRef = React.useRef<HTMLInputElement | null>();
     const resolvedRef = ref || defaultRef;
 
     React.useEffect(() => {

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Layout from "components/common/Layout";
-import OperatorForm from "components/operator/form";
+import OperatorForm from "components/operator/Form";
 
-export default function operator() {
+export default function OperatorPage() {
   const [showDetailInfo, setShowDetailInfo] = useState(false);
   const onPopupOpen = () => {
     setShowDetailInfo(true);

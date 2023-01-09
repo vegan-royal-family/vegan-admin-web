@@ -3,14 +3,29 @@ import Button from "components/common/Button";
 import Input from "components/common/Input";
 import RightSheet from "components/common/RightSheet";
 import TextArea from "components/common/TextArea";
+import { MouseEvent } from "react";
 
-export default function MemberInactiveForm({ visible, onClose }) {
+export default function MemberWarningForm({
+  visible,
+  onClose,
+}: {
+  visible?: boolean;
+  onClose?: (e: MouseEvent<HTMLButtonElement>) => any;
+}) {
   return (
-    <RightSheet visible={visible} title={"회원 비활성화 등록"}>
+    <RightSheet visible={visible} title={"회원 경고 등록"}>
       <GridItem>
         <FlexColItem>
-          <Input width={260} placeholder={"이름을 입력하세요."} label={"닉네임"} />
-          <Input width={260} placeholder={"소속을 선택하세요."} label={"종류"} />
+          <Input
+            width={260}
+            placeholder={"이름을 입력하세요."}
+            label={"닉네임"}
+          />
+          <Input
+            width={260}
+            placeholder={"소속을 선택하세요."}
+            label={"종류"}
+          />
         </FlexColItem>
         <TextArea
           width={260}
@@ -58,6 +73,5 @@ const GridItem = styled.div`
 const Divider = styled.div`
   opacity: 0.3;
   border: 0.3px solid #0f172a;
-
   margin: 14px 0px;
 `;

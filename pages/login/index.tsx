@@ -37,7 +37,7 @@ const FormContainer = styled.div`
   }
 `;
 
-export default function ManagerLoginPage() {
+export default function LoginPage() {
   const theme = useTheme();
   const router = useRouter();
 

@@ -1,4 +1,4 @@
-import TextButton from "../components/common/TextButton";
+import TextButton from "components/common/TextButton";
 
 export default {
   title: "components/TextButton",

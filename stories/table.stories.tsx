@@ -1,4 +1,4 @@
-import Table from "components/manage/Table";
+import Table from "components/common/Table";
 import range from "utils/range";
 
 export default {

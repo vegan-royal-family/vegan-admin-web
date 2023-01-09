@@ -6,7 +6,7 @@ type InputTypes = {
   id?: string;
   className?: string;
   value?: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => any;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => any;
   placeholder?: string;
   width?: string | number;
   height?: string | number;

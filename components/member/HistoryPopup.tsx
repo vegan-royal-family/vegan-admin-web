@@ -3,14 +3,30 @@ import Button from "components/common/Button";
 import Input from "components/common/Input";
 import RightSheet from "components/common/RightSheet";
 import TextArea from "components/common/TextArea";
+import { MouseEvent } from "react";
 
-export default function MemberHistory({ visible, onClose }) {
+// 경고 및 비활성화 이력 조회
+export default function MemberHistoryPopup({
+  visible,
+  onClose,
+}: {
+  visible?: boolean;
+  onClose?: (e: MouseEvent<HTMLButtonElement>) => any;
+}) {
   return (
     <RightSheet visible={visible} title={"경고 및 비활성화 이력 조회"}>
       <GridItem>
         <FlexColItem>
-          <Input width={260} placeholder={"이름을 입력하세요."} label={"닉네임"} />
-          <Input width={260} placeholder={"소속을 선택하세요."} label={"종류"} />
+          <Input
+            width={260}
+            placeholder={"이름을 입력하세요."}
+            label={"닉네임"}
+          />
+          <Input
+            width={260}
+            placeholder={"소속을 선택하세요."}
+            label={"종류"}
+          />
         </FlexColItem>
         <TextArea
           width={260}
@@ -18,14 +34,30 @@ export default function MemberHistory({ visible, onClose }) {
           placeholder={"직무 내용을 입력하세요."}
           label={"사유"}
         />
-        <Input width={260} placeholder={"이름을 입력하세요."} label={"비활성화 일시"} />
-        <Input width={260} placeholder={"소속을 선택하세요."} label={"처리자 정보"} />
+        <Input
+          width={260}
+          placeholder={"이름을 입력하세요."}
+          label={"비활성화 일시"}
+        />
+        <Input
+          width={260}
+          placeholder={"소속을 선택하세요."}
+          label={"처리자 정보"}
+        />
       </GridItem>
       <Divider />
       <GridItem>
         <FlexColItem>
-          <Input width={260} placeholder={"이름을 입력하세요."} label={"닉네임"} />
-          <Input width={260} placeholder={"소속을 선택하세요."} label={"종류"} />
+          <Input
+            width={260}
+            placeholder={"이름을 입력하세요."}
+            label={"닉네임"}
+          />
+          <Input
+            width={260}
+            placeholder={"소속을 선택하세요."}
+            label={"종류"}
+          />
         </FlexColItem>
         <TextArea
           width={260}
@@ -34,10 +66,18 @@ export default function MemberHistory({ visible, onClose }) {
           label={"사유"}
         />
         <Input width={260} placeholder={"이름을 입력하세요."} label={"차수"} />
-        <Input width={260} placeholder={"소속을 선택하세요."} label={"경고일시"} />
+        <Input
+          width={260}
+          placeholder={"소속을 선택하세요."}
+          label={"경고일시"}
+        />
       </GridItem>
       <div style={{ marginTop: 14 }}>
-        <Input width={570} placeholder={"소속을 선택하세요."} label={"처리자 정보"} />
+        <Input
+          width={570}
+          placeholder={"소속을 선택하세요."}
+          label={"처리자 정보"}
+        />
       </div>
       <ButtonBox>
         <Button type={"secondary"} size={"md"} onClick={onClose}>
@@ -74,6 +114,5 @@ const GridItem = styled.div`
 const Divider = styled.div`
   opacity: 0.3;
   border: 0.3px solid #0f172a;
-
   margin: 14px 0px;
 `;
