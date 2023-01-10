@@ -15,7 +15,12 @@ export default function OperatorForm({
   onClose?: (e: MouseEvent<HTMLButtonElement>) => any;
 }) {
   return (
-    <RightSheet visible={visible} title={"상세 정보 조회"}>
+    <RightSheet
+      visible={visible}
+      title="상세 정보 조회"
+      onClose={onClose}
+      onSave={() => {}}
+    >
       <GridItem>
         <div
           style={{
@@ -26,49 +31,33 @@ export default function OperatorForm({
             gap: 14,
           }}
         >
-          <ImgBox src={Img.src} alt={"아바타"} />
+          <ImgBox src={Img.src} alt="아바타" />
           <div
             style={{
               display: "flex",
-              gap: 20,
+              gap: 14,
               flexDirection: "column",
             }}
           >
-            <Button size="sm" type={"tertiary"} label={"수정"} />
-            <Button size="sm" type={"secondary"} label={"삭제"} />
+            <Button size="sm" type="tertiary" label="수정" />
+            <Button size="sm" type="secondary" label="삭제" />
           </div>
         </div>
         <FlexColItem>
-          <Input
-            width={260}
-            placeholder={"이름을 입력하세요."}
-            label={"이름"}
-          />
-          <Input
-            width={260}
-            placeholder={"소속을 선택하세요."}
-            label={"소속"}
-          />
+          <Input width="100%" placeholder="이름을 입력하세요." label="이름" />
+          <Input width="100%" placeholder="소속을 선택하세요." label="소속" />
         </FlexColItem>
         <FlexColItem>
-          <Input
-            width={260}
-            placeholder={"직책을 선택하세요."}
-            label={"직책"}
-          />
-          <Input
-            width={260}
-            placeholder={"권한을 선택하세요."}
-            label={"권한"}
-          />
+          <Input width="100%" placeholder="직책을 선택하세요." label="직책" />
+          <Input width="100%" placeholder="권한을 선택하세요." label="권한" />
         </FlexColItem>
         <TextArea
-          width={260}
-          height={114}
-          placeholder={"직무 내용을 입력하세요."}
-          label={"직무"}
+          width="100%"
+          height="100%"
+          placeholder="직무 내용을 입력하세요."
+          label="직무"
         />
-        <Input width={260} placeholder={"010-0000-0000"} label={"연락처"} />
+        <Input width="100%" placeholder="010-0000-0000" label="연락처" />
         <div
           style={{
             display: "flex",
@@ -77,39 +66,36 @@ export default function OperatorForm({
             justifyContent: "flex-end",
           }}
         >
-          <Input width={260} placeholder={"abc@vegan.or.kr"} />
+          <Input width="100%" placeholder="abc@vegan.or.kr" />
         </div>
         <Input
-          width={260}
-          placeholder={"영문 4자 이상 입력하세요."}
-          label={"아이디"}
+          width="100%"
+          placeholder="영문 4자 이상 입력하세요."
+          label="아이디"
         />
         <Input
-          width={260}
-          placeholder={"8자 이상 입력하세요.(영문, 숫자 혼용)"}
-          label={"비밀번호"}
-        />
-        <Input
-          width={260}
-          label={"등록일시"}
-          disabled={true}
-          value={dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")}
-        />
-        <Input
-          width={260}
-          label={"수정일시"}
-          disabled={true}
-          value={dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")}
+          width="100%"
+          placeholder="8자 이상 입력하세요.(영문, 숫자 혼용)"
+          label="비밀번호"
         />
       </GridItem>
-      <ButtonBox>
-        <Button type={"primary"} size={"md"} onClick={onClose}>
-          수정
-        </Button>
-        <Button type={"secondary"} size={"md"} onClick={onClose}>
-          닫기
-        </Button>
-      </ButtonBox>
+      <BottomItem>
+        <Divider />
+        <GridItem>
+          <Input
+            width="100%"
+            label="등록일시"
+            disabled={true}
+            value={dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")}
+          />
+          <Input
+            width="100%"
+            label="수정일시"
+            disabled={true}
+            value={dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")}
+          />
+        </GridItem>
+      </BottomItem>
     </RightSheet>
   );
 }
@@ -128,16 +114,24 @@ const GridItem = styled.div`
   row-gap: 22px;
 `;
 
-const ButtonBox = styled.div`
-  gap: 14px;
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  bottom: 40px;
-  width: calc(100% - 200px);
+const ImgBox = styled.img`
+  width: 180px;
+  height: 180px;
 `;
 
-const ImgBox = styled.img`
-  width: 186px;
-  height: 186px;
+const BottomItem = styled.div`
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+`;
+
+const Divider = styled.div`
+  width: 100%;
+  height: 1px;
+  opacity: 0.2;
+  background-color: #0f172a;
+  box-sizing: border-box;
+  margin: 14px 0px 28px;
 `;

@@ -8,6 +8,9 @@ type RightSheetPropsType = {
   visible?: boolean;
   title?: string;
   onClose?: (e: MouseEvent<HTMLButtonElement>) => any;
+  onSave?: (e: MouseEvent<HTMLButtonElement>) => any;
+  closeButtonText?: string;
+  saveButtonText?: string;
 };
 
 export default function RightSheet({
@@ -15,6 +18,9 @@ export default function RightSheet({
   visible,
   title,
   onClose,
+  onSave,
+  closeButtonText = "취소",
+  saveButtonText = "저장",
 }: PropsWithChildren<RightSheetPropsType>) {
   const theme = useTheme();
 
@@ -25,13 +31,23 @@ export default function RightSheet({
         <PerfectScrollbar>
           <Content theme={theme}>{children}</Content>
         </PerfectScrollbar>
-        {typeof onClose === "function" && (
-          <ButtonBox>
-            <Button type="secondary" size="md" onClick={onClose}>
-              닫기
+        <ButtonBox>
+          {onSave && (
+            <Button
+              type="primary"
+              size="md"
+              onClick={onSave}
+              style={{ marginRight: 14 }}
+            >
+              {saveButtonText}
             </Button>
-          </ButtonBox>
-        )}
+          )}
+          {onClose && (
+            <Button type="secondary" size="md" onClick={onClose}>
+              {closeButtonText}
+            </Button>
+          )}
+        </ButtonBox>
       </StyledPopup>
     </Overlay>
   );
@@ -61,10 +77,12 @@ const TitleBox = styled.div`
 const Content = styled.div`
   padding: 0px;
   width: 100%;
+  height: 100%;
   //flex: 1;
   padding: 0 32px;
   box-sizing: border-box;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ButtonBox = styled.div`

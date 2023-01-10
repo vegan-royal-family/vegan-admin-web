@@ -11,6 +11,7 @@ type ButtonProps = {
   disabled?: boolean;
   width?: string | number;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => any;
+  style?: any;
 };
 
 export default function Button({
