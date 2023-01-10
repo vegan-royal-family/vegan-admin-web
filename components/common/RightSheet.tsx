@@ -66,7 +66,7 @@ const Overlay = styled.div`
 `;
 
 const TitleBox = styled.div`
-  ${(p) => p.theme.typography.body2}
+  ${(p) => p.theme.typography.body1}
   ${(p) => p.theme.typography.weightBold}
   
   color: ${(p) => p.theme.palette.colors.basic.black};

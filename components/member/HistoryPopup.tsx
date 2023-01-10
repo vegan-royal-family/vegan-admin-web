@@ -3,6 +3,7 @@ import Input from "components/common/Input";
 import RightSheet from "components/common/RightSheet";
 import TextArea from "components/common/TextArea";
 import { MouseEvent } from "react";
+import Divider from "components/common/Divider";
 
 // 경고 및 비활성화 이력 조회
 export default function MemberHistoryPopup({
@@ -17,6 +18,7 @@ export default function MemberHistoryPopup({
       visible={visible}
       title="경고 및 비활성화 이력 조회"
       onClose={onClose}
+      closeButtonText="닫기"
     >
       <GridItem>
         <FlexColItem>
@@ -79,13 +81,4 @@ const GridItem = styled.div`
   grid-template-columns: 1fr 1fr;
   column-gap: 16px;
   row-gap: 22px;
-`;
-
-const Divider = styled.div`
-  width: 100%;
-  height: 1px;
-  opacity: 0.2;
-  background-color: #0f172a;
-  box-sizing: border-box;
-  margin: 14px 0px 28px;
 `;

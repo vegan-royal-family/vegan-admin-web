@@ -3,6 +3,7 @@ import { useTheme } from "@emotion/react";
 import Link from "next/link";
 import { useRecoilValue } from "recoil";
 import { authState } from "states/auth";
+import Image from "next/image";
 import Logo from "assets/Logo/Logo.png";
 
 type MenuType = Array<{ route: string; name: string }>;
@@ -18,7 +19,7 @@ export default function Header(props: { menus: MenuType }) {
 
   return (
     <StyledHeader theme={theme}>
-      <img src={Logo.src} alt="어쩌다보니비건 로고" width={165} height={24} />
+      <Image src={Logo.src} alt="어쩌다보니비건 로고" width={165} height={24} />
       <Menu>
         {menus.map((item) => {
           return (

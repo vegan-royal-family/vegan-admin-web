@@ -6,6 +6,7 @@ import TextArea from "components/common/TextArea";
 import RightSheet from "components/common/RightSheet";
 import Img from "assets/member1.png";
 import { MouseEvent } from "react";
+import Divider from "components/common/Divider";
 
 export default function OperatorForm({
   visible,
@@ -125,13 +126,4 @@ const BottomItem = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-`;
-
-const Divider = styled.div`
-  width: 100%;
-  height: 1px;
-  opacity: 0.2;
-  background-color: #0f172a;
-  box-sizing: border-box;
-  margin: 14px 0px 28px;
 `;
