@@ -60,6 +60,9 @@ const LabelField = styled.div`
 `;
 
 const StyledTextArea = styled.textarea`
+  ${(p) => p.theme.typography.body3}
+  ${(p) => p.theme.typography.weightRegular}
+  
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -68,6 +71,7 @@ const StyledTextArea = styled.textarea`
   background: ${(p) => p.theme.palette.colors.basic.white};
   border: 1px solid ${(p) => p.theme.palette.colors.gray[300]};
   border-radius: 5px;
+  box-sizing: border-box;
 
   resize: none;
 

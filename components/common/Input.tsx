@@ -68,7 +68,7 @@ const LabelField = styled.div<{ disabled: boolean }>`
 `;
 
 const StyledInput = styled.input`
-  ${(p) => p.theme.typography.body2}
+  ${(p) => p.theme.typography.body3}
   ${(p) => p.theme.typography.weightRegular}
 
   appearance: none;
@@ -81,6 +81,7 @@ const StyledInput = styled.input`
   border: 1px solid ${(p) => p.theme.palette.colors.gray[300]};
   border-radius: 5px;
   color: ${(p) => p.theme.palette.colors.basic.black};
+  box-sizing: border-box;
 
   ::placeholder {
     color: ${(p) => p.theme.palette.colors.gray[400]};

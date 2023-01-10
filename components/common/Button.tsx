@@ -105,7 +105,7 @@ const StyledButton = styled.button<{
   cursor: ${(p) => (p.disabled ? `default` : `pointer`)};
 
   ${(p) => p.theme.typography.weightBold};
-  ${(p) => p.theme.typography.body2};
+  ${(p) => p.theme.typography.body3};
 
   gap: var(--button-gap);
   padding: var(--button-padding);
