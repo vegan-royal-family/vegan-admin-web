@@ -3,14 +3,21 @@ import styled from "@emotion/styled";
 import { useRowSelect, usePagination, useTable } from "react-table";
 import Pagination from "./Pagination";
 
+type TablePropsType = {
+  columns: Array<any>;
+  data: Array<any>;
+  disablePagination?: boolean;
+};
+
+//typeFilterButtonOptions
+//searchOptions
+//filterOptions
+
 export default function Table({
   columns,
   data,
   disablePagination = false,
-  typeFilterButtonOptions,
-  searchOptions,
-  filterOptions,
-}) {
+}: TablePropsType) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -168,7 +175,8 @@ const TableStyles = styled.div`
 
 const TableHeaderTh = styled.th<{ textAlign: string; width: string | number }>`
   border-bottom: 1px solid rgba(224, 224, 224, 1);
-  font-weight: 500 !important;
+  font-size: 14px;
+  font-weight: 500;
   margin: 0;
   padding: 10px;
   text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
@@ -180,6 +188,7 @@ const TableHeaderTh = styled.th<{ textAlign: string; width: string | number }>`
 const TableBodyTd = styled.td<{ textAlign: string }>`
   margin: 0;
   padding: 5px 10px;
+  font-size: 14px;
   box-sizing: border-box;
   text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
   white-space: nowrap;
