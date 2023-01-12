@@ -158,6 +158,18 @@ const TableStyles = styled.div`
     border-spacing: 0;
   }
 
+  tbody {
+    display: block;
+    max-height: 360px;
+  }
+
+  tbody tr,
+  thead tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
   tbody:before {
     content: "-";
     display: block;
