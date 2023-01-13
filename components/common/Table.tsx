@@ -42,25 +42,25 @@ export default function Table({
       initialState: { pageIndex: 0 },
     },
     usePagination,
-    useRowSelect,
-    (hooks) => {
-      hooks.visibleColumns.push((columns) => [
-        {
-          id: "selection",
-          Header: ({ getToggleAllRowsSelectedProps }) => (
-            <div>
-              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-            </div>
-          ),
-          Cell: ({ row }) => (
-            <div>
-              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-            </div>
-          ),
-        },
-        ...columns,
-      ]);
-    }
+    useRowSelect
+    // (hooks) => {
+    //   hooks.visibleColumns.push((columns) => [
+    //     {
+    //       id: "selection",
+    //       Header: ({ getToggleAllRowsSelectedProps }) => (
+    //         <div>
+    //           <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+    //         </div>
+    //       ),
+    //       Cell: ({ row }) => (
+    //         <div>
+    //           <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+    //         </div>
+    //       ),
+    //     },
+    //     ...columns,
+    //   ]);
+    // }
   );
 
   return (
@@ -104,6 +104,7 @@ export default function Table({
                     return (
                       <TableBodyTd
                         textAlign={cell?.column?.options?.align}
+                        width={cell?.column?.options?.width}
                         {...cell.getCellProps()}
                       >
                         {cellData}
@@ -148,29 +149,17 @@ const TableStyles = styled.div`
     display: block;
     max-width: 100%;
     overflow-x: auto;
-    overflow-y: hidden;
+    overflow-y: auto;
+    max-height: 400px;
     border-bottom: 1px solid rgba(224, 224, 224, 1);
   }
 
   table {
-    /* Make sure the inner table is always as wide as needed */
     width: 100%;
     border-spacing: 0;
   }
 
-  tbody {
-    display: block;
-    max-height: 360px;
-  }
-
-  tbody tr,
-  thead tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-  }
-
-  tbody:before {
+  /* tbody:before {
     content: "-";
     display: block;
     line-height: 5px;
@@ -182,10 +171,13 @@ const TableStyles = styled.div`
     display: block;
     line-height: 5px;
     color: transparent;
-  }
+  } */
 `;
 
-const TableHeaderTh = styled.th<{ textAlign: string; width: string | number }>`
+const TableHeaderTh = styled.th<{
+  textAlign: string;
+  width: string | number;
+}>`
   border-bottom: 1px solid rgba(224, 224, 224, 1);
   font-size: 14px;
   font-weight: 500;
@@ -195,33 +187,41 @@ const TableHeaderTh = styled.th<{ textAlign: string; width: string | number }>`
   white-space: nowrap;
   box-sizing: border-box;
   width: ${(props) => props?.width};
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: #fff;
 `;
 
-const TableBodyTd = styled.td<{ textAlign: string }>`
+const TableBodyTd = styled.td<{
+  textAlign: string;
+  width: string | number;
+}>`
   margin: 0;
   padding: 5px 10px;
   font-size: 14px;
   box-sizing: border-box;
   text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
+  width: ${(props) => (props?.width ? props.width : "fit-content")};
   white-space: nowrap;
 `;
 
-const IndeterminateCheckbox = React.forwardRef<HTMLInputElement>(
-  (
-    { indeterminate, ...rest }: { indeterminate: boolean },
-    ref: React.MutableRefObject<HTMLInputElement | null>
-  ) => {
-    const defaultRef = React.useRef<HTMLInputElement | null>();
-    const resolvedRef = ref || defaultRef;
+// const IndeterminateCheckbox = React.forwardRef<HTMLInputElement>(
+//   (
+//     { indeterminate, ...rest }: { indeterminate: boolean },
+//     ref: React.MutableRefObject<HTMLInputElement | null>
+//   ) => {
+//     const defaultRef = React.useRef<HTMLInputElement | null>();
+//     const resolvedRef = ref || defaultRef;
 
-    React.useEffect(() => {
-      resolvedRef.current.indeterminate = indeterminate;
-    }, [resolvedRef, indeterminate]);
+//     React.useEffect(() => {
+//       resolvedRef.current.indeterminate = indeterminate;
+//     }, [resolvedRef, indeterminate]);
 
-    return (
-      <>
-        <input type="checkbox" ref={resolvedRef} {...rest} />
-      </>
-    );
-  }
-);
+//     return (
+//       <>
+//         <input type="checkbox" ref={resolvedRef} {...rest} />
+//       </>
+//     );
+//   }
+// );
