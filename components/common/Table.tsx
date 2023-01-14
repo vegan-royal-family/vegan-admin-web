@@ -2,16 +2,16 @@ import React from "react";
 import styled from "@emotion/styled";
 import { useRowSelect, usePagination, useTable } from "react-table";
 import Pagination from "./Pagination";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
+// typeFilterButtonOptions
+// searchOptions
+// filterOptions
 type TablePropsType = {
   columns: Array<any>;
   data: Array<any>;
   disablePagination?: boolean;
 };
-
-//typeFilterButtonOptions
-//searchOptions
-//filterOptions
 
 export default function Table({
   columns,
@@ -43,6 +43,7 @@ export default function Table({
     },
     usePagination,
     useRowSelect
+    // TODO: Checkbox 컴포넌트 구현 후 테이블에 체크박스 넣을 예정
     // (hooks) => {
     //   hooks.visibleColumns.push((columns) => [
     //     {
@@ -65,58 +66,60 @@ export default function Table({
 
   return (
     <TableStyles>
-      <div className="tableWrap">
-        <table {...getTableProps()}>
-          <thead>
-            {headerGroups.map((headerGroup) => {
-              return (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => {
-                    let header = column.render("Header");
-                    if (typeof column?.headerRender === "function") {
-                      header = column?.headerRender();
-                    }
-                    return (
-                      <TableHeaderTh
-                        textAlign={column?.options?.align}
-                        width={column?.options?.width}
-                        {...column.getHeaderProps()}
-                      >
-                        {header}
-                      </TableHeaderTh>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {(disablePagination ? rows : page).map((row, _index) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
-                    let cellData = cell.render("Cell");
-                    if (typeof cell.column?.cellRender === "function") {
-                      const rowValues = cell.row?.original;
-                      cellData = cell.column?.cellRender(rowValues);
-                    }
-                    return (
-                      <TableBodyTd
-                        textAlign={cell?.column?.options?.align}
-                        width={cell?.column?.options?.width}
-                        {...cell.getCellProps()}
-                      >
-                        {cellData}
-                      </TableBodyTd>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      <PerfectScrollbar>
+        <div className="tableWrap">
+          <table {...getTableProps()}>
+            <thead>
+              {headerGroups.map((headerGroup) => {
+                return (
+                  <tr {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map((column) => {
+                      let header = column.render("Header");
+                      if (typeof column?.headerRender === "function") {
+                        header = column?.headerRender();
+                      }
+                      return (
+                        <TableHeaderTh
+                          textAlign={column?.options?.align}
+                          width={column?.options?.width}
+                          {...column.getHeaderProps()}
+                        >
+                          {header}
+                        </TableHeaderTh>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {(disablePagination ? rows : page).map((row, _index) => {
+                prepareRow(row);
+                return (
+                  <tr {...row.getRowProps()}>
+                    {row.cells.map((cell) => {
+                      let cellData = cell.render("Cell");
+                      if (typeof cell.column?.cellRender === "function") {
+                        const rowValues = cell.row?.original;
+                        cellData = cell.column?.cellRender(rowValues);
+                      }
+                      return (
+                        <TableBodyTd
+                          textAlign={cell?.column?.options?.align}
+                          width={cell?.column?.options?.width}
+                          {...cell.getCellProps()}
+                        >
+                          {cellData}
+                        </TableBodyTd>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </PerfectScrollbar>
       {!disablePagination && pageCount > 1 && (
         <Pagination
           {...{
@@ -137,48 +140,31 @@ export default function Table({
   );
 }
 
-const TableStyles = styled.div`
+const TableStyles = styled.div<{ tableMaxHeight?: string | number }>`
   /* This is required to make the table full-width */
   display: block;
   max-width: 100%;
-  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
-    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  border: 1px solid #ccd2d7;
 
   /* This will make the table scrollable when it gets too small */
   .tableWrap {
     display: block;
     max-width: 100%;
-    overflow-x: auto;
-    overflow-y: auto;
-    max-height: 400px;
-    border-bottom: 1px solid rgba(224, 224, 224, 1);
+    max-height: ${(props) =>
+      props.tableMaxHeight ? props.tableMaxHeight : "505px"};
   }
 
   table {
     width: 100%;
     border-spacing: 0;
   }
-
-  /* tbody:before {
-    content: "-";
-    display: block;
-    line-height: 5px;
-    color: transparent;
-  }
-
-  tbody:after {
-    content: "-";
-    display: block;
-    line-height: 5px;
-    color: transparent;
-  } */
 `;
 
 const TableHeaderTh = styled.th<{
-  textAlign: string;
-  width: string | number;
+  textAlign?: string;
+  width?: string | number;
 }>`
-  border-bottom: 1px solid rgba(224, 224, 224, 1);
+  border-bottom: 1px solid #ccd2d7;
   font-size: 14px;
   font-weight: 500;
   margin: 0;
@@ -194,11 +180,12 @@ const TableHeaderTh = styled.th<{
 `;
 
 const TableBodyTd = styled.td<{
-  textAlign: string;
-  width: string | number;
+  textAlign?: string;
+  width?: string | number;
 }>`
+  border-bottom: 1px solid #ccd2d7;
   margin: 0;
-  padding: 5px 10px;
+  padding: 10px;
   font-size: 14px;
   box-sizing: border-box;
   text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
