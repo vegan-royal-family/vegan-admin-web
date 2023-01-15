@@ -1,6 +1,7 @@
 import range from "utils/range";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
+import { css, useTheme } from "@emotion/react";
+import Icon from "components/common/Icon";
 
 const defaultPageGroupCount = 4;
 const defaultPageSizeOptions = [10, 20, 30, 40, 50];
@@ -88,6 +89,8 @@ export default function Pagination(props) {
     pageSizeOptions = defaultPageSizeOptions,
   } = props;
 
+  const theme = useTheme();
+
   const isArrangeView = pageCount <= defaultPageGroupCount + 3;
   const lastPageIndex = pageCount - 1;
   const prevPageIndexList = [];
@@ -117,7 +120,7 @@ export default function Pagination(props) {
   }
 
   return (
-    <PaginationWrapper>
+    <PaginationWrapper theme={theme}>
       <div style={{ flex: 1 }}>
         <span style={{ paddingRight: 16 }}>
           Page {pageIndex + 1} of {pageOptions.length}
@@ -140,7 +143,7 @@ export default function Pagination(props) {
         onClick={() => previousPage()}
         disabled={!canPreviousPage}
       >
-        {"<"}
+        <Icon icon="left" size="sm" />
       </button>
       <PageIndexGroup
         {...{
@@ -158,7 +161,7 @@ export default function Pagination(props) {
         onClick={() => nextPage()}
         disabled={!canNextPage}
       >
-        {">"}
+        <Icon icon="right" size="sm" />
       </button>
       <span style={{ marginLeft: 16 }}>
         Go to page
@@ -180,8 +183,8 @@ const pageIndexStyle = css`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   background: transparent;
   border: none;
   padding: 0;
@@ -189,35 +192,36 @@ const pageIndexStyle = css`
   border-radius: 50%;
   cursor: pointer;
   user-select: none;
-  font-family: "Spoqa Han Sans Neo", "sans-serif";
-  font-size: 14px;
 `;
 
 const PaginationWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 16px;
+  padding: 12px;
+  border-top: 1px solid ${(p) => p.theme.palette.colors.gray[300]};
+  ${(p) => p.theme.typography.body3}
 
   .indexBtnGroup {
     display: flex;
     align-items: center;
+    ${(p) => p.theme.typography.weightMedium}
     & > button {
       ${pageIndexStyle}
     }
 
     .selectedPageIndex {
       ${pageIndexStyle}
-      background: rgba(0, 0, 0, 0.6) !important;
+      background: ${(p) => p.theme.palette.colors.gray[600]};
       color: #fff;
-      font-weight: 500;
       border-radius: 50%;
       margin: 0 2px;
       user-select: none;
-      cursor: auto !important;
+      cursor: auto;
     }
   }
 
   .arrowBtn {
+    display: flex;
     border: none;
     background: transparent;
     cursor: pointer;

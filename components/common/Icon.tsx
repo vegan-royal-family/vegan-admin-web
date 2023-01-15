@@ -36,12 +36,18 @@ import Star from "../../assets/icon/star.svg";
 import Up from "../../assets/icon/up.svg";
 
 type IconProps = {
+  className?: string;
   icon: string;
   size: "xxs" | "xs" | "sm" | "md" | "lg" | "xl";
   fill?: string;
 };
 
-export default function Icon({ icon, size = "md", fill }: IconProps) {
+export default function Icon({
+  className,
+  icon,
+  size = "md",
+  fill,
+}: IconProps) {
   const SIZES = {
     xxs: 12,
     xs: 16,
@@ -53,6 +59,7 @@ export default function Icon({ icon, size = "md", fill }: IconProps) {
 
   // TODO: svg 색을 바꾸려면 svg > path > fill을 바꿔줘야함
   const args = {
+    className,
     width: SIZES[size],
     height: SIZES[size],
     fill,
