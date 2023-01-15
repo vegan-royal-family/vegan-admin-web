@@ -1,4 +1,5 @@
 import { atom, selector } from "recoil";
+import { v1 } from "uuid";
 
 type UserInfo = {
   id: number;
@@ -8,7 +9,7 @@ type UserInfo = {
 };
 
 const defaultSelector = selector({
-  key: "authSelector",
+  key: `authSelector/${v1()}`,
   get: async ({ get }): Promise<UserInfo> => {
     // TODO: 프로필 API로 데이터 가져오기
     return {
@@ -21,6 +22,6 @@ const defaultSelector = selector({
 });
 
 export const authState = atom({
-  key: "auth",
+  key: `auth/${v1()}`,
   default: defaultSelector,
 });

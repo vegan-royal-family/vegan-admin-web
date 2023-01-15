@@ -63,7 +63,7 @@ export default function LoginPage() {
   const loginHandler = async () => {
     try {
       // TODO: id, password 값 검증을 해야할까?
-      const res = await managerLogin(loginData);
+      //const res = await managerLogin(loginData);
 
       //const profileData = res?.data;
       const profileData = {
@@ -77,7 +77,7 @@ export default function LoginPage() {
       setAuthProfileState(profileData);
 
       // 메인 페이지로 리다이렉션
-      router.replace("/manage");
+      router.replace("/");
     } catch (e) {
       // 에러 토스트 표시
       setErrorMessage("로그인에 실패하였습니다.");

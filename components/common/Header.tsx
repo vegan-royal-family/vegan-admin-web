@@ -36,6 +36,7 @@ export default function Header(props: { menus: MenuType }) {
 
 const StyledHeader = styled.header`
   height: 70px;
+  flex: 0 0 70px;
   width: calc(100% - 96px);
   background: ${(p) => p.theme.palette.colors.primary[50]};
   display: flex;

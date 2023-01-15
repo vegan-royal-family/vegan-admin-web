@@ -1,5 +1,7 @@
 import { ThemeProvider } from "@emotion/react";
 import theme from "../styles/theme";
+import "react-perfect-scrollbar/dist/css/styles.css";
+import "styles/reset.css";
 
 export const decorators = [
   (Story) => (
