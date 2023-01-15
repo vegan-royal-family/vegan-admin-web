@@ -6,6 +6,7 @@ import MemberInactiveForm from "components/member/InactiveForm";
 import Table from "components/common/Table";
 import range from "utils/range";
 import styled from "@emotion/styled";
+import Icon from "components/common/Icon";
 
 const PageWrapper = styled.div`
   width: 100%;
@@ -20,6 +21,13 @@ export default function MemberPage() {
     visible: boolean;
   }>({ type: "", visible: false });
 
+  const onPopupOpen = (type: "" | "history" | "warning" | "inactive") => {
+    setPopupVisible({
+      type,
+      visible: true,
+    });
+  };
+
   const onPopupClose = () => {
     setPopupVisible({
       type: "",
@@ -31,9 +39,6 @@ export default function MemberPage() {
     {
       Header: "닉네임",
       accessor: "nickname",
-      options: {
-        align: "start",
-      },
     },
     {
       Header: "유형",
@@ -74,36 +79,41 @@ export default function MemberPage() {
       Header: "처리 이력",
       cellRender: (data) => {
         return (
-          <button
-            type="button"
-            onClick={() => alert(`${data.nickname} 처리 이력 오픈!`)}
-          >
+          <button type="button" onClick={() => onPopupOpen("history")}>
             조회
           </button>
         );
       },
       options: {
         width: "100px",
+        disableSort: true,
+        headerAlign: "center",
+        cellAlign: "center",
       },
     },
     {
       Header: "관리",
-      // headerRender: () => {
-      //   return <FaceIcon />;
-      // },
+      headerRender: () => {
+        return <Icon icon="attention" size="sm" />;
+      },
       cellRender: (data) => {
-        // 경고, 비활성화 버튼
         // 경고 2회가 넘은 사람만 비활성화 버튼이 활성화됨
-        const buttonEnabled = (data?.warningCount ?? 0) > 2;
         return (
           <div>
-            <button>경고</button>
-            <button disabled={!buttonEnabled}>비활성화</button>
+            <button type="button" onClick={() => onPopupOpen("warning")}>
+              경고
+            </button>
+            <button type="button" onClick={() => onPopupOpen("inactive")}>
+              비활성화
+            </button>
           </div>
         );
       },
       options: {
         width: "150px",
+        disableSort: true,
+        headerAlign: "center",
+        cellAlign: "center",
       },
     },
   ];
@@ -141,7 +151,26 @@ export default function MemberPage() {
         />
       )}
       <PageWrapper>
-        <Table columns={columns} data={getData(79)} />
+        <Table
+          columns={columns}
+          data={getData(79)}
+          fetchData={(sortOption) => {
+            // TODO: 정렬 UI 테스트를 위해 임시로 구현해놓은 것. 수정해야함.
+            const order = sortOption?.isDesc ? "desc" : "asc";
+            return [
+              {
+                id: 1,
+                nickname: `${sortOption?.id}-${order}`,
+                vegetarianType: "폴로",
+                gender: "male",
+                birth: "2001-04-11",
+                snsType: "카카오",
+                createdAt: "2022-12-31 23:47:58",
+                warningCount: 0,
+              },
+            ];
+          }}
+        />
       </PageWrapper>
     </Layout>
   );
