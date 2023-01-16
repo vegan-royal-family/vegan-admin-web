@@ -34,6 +34,7 @@ import StarFilledHalf from "../../assets/icon/star_filled_half.svg";
 import StarFilled from "../../assets/icon/star_filled.svg";
 import Star from "../../assets/icon/star.svg";
 import Up from "../../assets/icon/up.svg";
+import Checked from "../../assets/icon/checked.svg";
 
 type IconProps = {
   className?: string;
@@ -138,6 +139,8 @@ export default function Icon({
       return <Star {...args} />;
     case "up":
       return <Up {...args} />;
+    case "checked":
+      return <Checked {...args} />;
 
     default:
       return;
