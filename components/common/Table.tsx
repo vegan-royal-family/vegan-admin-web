@@ -251,12 +251,18 @@ const TableStyles = styled.div<{ tableMaxHeight?: string | number }>`
     max-width: 100%;
     // TODO: Row가 10개 이상 보일 때 y 스크롤 되도록 설정. 추후 수정 될 수 있음.
     max-height: ${(props) =>
-      props.tableMaxHeight ? props.tableMaxHeight : "515px"};
+      props.tableMaxHeight ? props.tableMaxHeight : "510px"};
   }
 
   table {
     width: 100%;
     border-spacing: 0;
+  }
+
+  tbody tr:last-child {
+    & > td {
+      border-bottom: none !important;
+    }
   }
 `;
 
