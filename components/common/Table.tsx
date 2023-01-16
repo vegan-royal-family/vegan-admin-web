@@ -5,6 +5,7 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import { useTheme } from "@emotion/react";
 import Icon from "components/common/Icon";
 import Pagination from "./Pagination";
+import Checkbox from "./Checkbox";
 
 // typeFilterButtonOptions
 // searchOptions
@@ -15,10 +16,12 @@ type SortOptionType = {
 };
 
 type TablePropsType = {
+  id: string;
   columns: Array<any>;
   data: Array<any>;
   disablePagination?: boolean;
-  fetchData: (sortOption?: SortOptionType, filterOption?: any) => Array<any>;
+  useSelection?: boolean;
+  fetchData?: (sortOption?: SortOptionType, filterOption?: any) => Array<any>;
 };
 
 // TODO: useTable에서 가져오는 값 타입 정의
@@ -36,20 +39,60 @@ const SortIcon = ({ isSortColumn, sortOption }) => {
 };
 
 export default function Table({
+  id: tableId,
   columns,
   data = [],
   disablePagination = false,
+  useSelection = false,
   fetchData,
 }: TablePropsType) {
   const theme = useTheme();
-  const [sortOption, setSortOption] = useState<{
-    isDesc: boolean;
-    id: string;
-  }>({
+
+  const [tableData, setTableData] = useState(data);
+  const [sortOption, setSortOption] = useState<SortOptionType>({
     isDesc: false,
     id: null,
   });
-  const [tableData, setTableData] = useState(data);
+
+  const pushVisibleColumns = (hooks) => {
+    const checkboxColumn = {
+      id: "selection",
+      Header: ({ getToggleAllRowsSelectedProps }) => {
+        return (
+          <div>
+            <Checkbox
+              id={`${tableId}-selection-header`}
+              {...getToggleAllRowsSelectedProps()}
+            />
+          </div>
+        );
+      },
+      Cell: ({ row }) => {
+        return (
+          <div>
+            <Checkbox
+              id={`row-${row.id}`}
+              {...row.getToggleRowSelectedProps()}
+            />
+          </div>
+        );
+      },
+      options: {
+        width: "100px",
+        headerAlign: "center",
+        cellAlign: "center",
+      },
+    };
+
+    hooks.visibleColumns.push((columns) => {
+      const visibleColumns = [...columns];
+      // checkbox 컬럼을 사용하는 경우, 테이블 컬럼 리스트 맨 앞에 checkbox 컬럼을 추가함
+      if (useSelection) {
+        visibleColumns.unshift(checkboxColumn);
+      }
+      return visibleColumns;
+    });
+  };
 
   const {
     getTableProps,
@@ -66,7 +109,7 @@ export default function Table({
     nextPage,
     previousPage,
     setPageSize,
-    selectedFlatRows,
+    // selectedFlatRows,
     state: { pageIndex, pageSize, selectedRowIds },
   } = useTable(
     {
@@ -75,26 +118,8 @@ export default function Table({
       initialState: { pageIndex: 0 },
     },
     usePagination,
-    useRowSelect
-    // TODO: Checkbox 컴포넌트 구현 후 테이블에 체크박스 넣을 예정
-    // (hooks) => {
-    //   hooks.visibleColumns.push((columns) => [
-    //     {
-    //       id: "selection",
-    //       Header: ({ getToggleAllRowsSelectedProps }) => (
-    //         <div>
-    //           <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-    //         </div>
-    //       ),
-    //       Cell: ({ row }) => (
-    //         <div>
-    //           <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-    //         </div>
-    //       ),
-    //     },
-    //     ...columns,
-    //   ]);
-    // }
+    useRowSelect,
+    pushVisibleColumns
   );
 
   useEffect(() => {
@@ -109,7 +134,7 @@ export default function Table({
   return (
     <TableStyles theme={theme}>
       <PerfectScrollbar>
-        <div className="tableWrap">
+        <div className="table-wrap">
           <table {...getTableProps()}>
             <thead>
               {headerGroups.map((headerGroup) => {
@@ -121,7 +146,7 @@ export default function Table({
                         header = column?.headerRender();
                       }
 
-                      const enableSort = !column?.options?.disableSort;
+                      const useSort = column?.options?.useSort;
                       const isSortColumn = column.id === sortOption?.id;
 
                       return (
@@ -130,7 +155,7 @@ export default function Table({
                           width={column?.options?.width}
                           {...column.getHeaderProps()}
                         >
-                          {enableSort ? (
+                          {useSort ? (
                             <span
                               className={
                                 isSortColumn
@@ -183,7 +208,7 @@ export default function Table({
                           width={cell?.column?.options?.width}
                           {...cell.getCellProps()}
                         >
-                          {cellData}
+                          <span>{cellData}</span>
                         </TableBodyTd>
                       );
                     })}
@@ -221,7 +246,7 @@ const TableStyles = styled.div<{ tableMaxHeight?: string | number }>`
   border: 1px solid ${(props) => props.theme.palette.colors.gray[300]};
 
   /* This will make the table scrollable when it gets too small */
-  .tableWrap {
+  .table-wrap {
     display: block;
     max-width: 100%;
     // TODO: Row가 10개 이상 보일 때 y 스크롤 되도록 설정. 추후 수정 될 수 있음.
@@ -303,26 +328,11 @@ const TableBodyTd = styled.td<{
   box-sizing: border-box;
   white-space: nowrap;
   border-bottom: 1px solid ${(p) => p.theme.palette.colors.gray[300]};
-  text-align: ${(p) => (p.cellAlign ? p.cellAlign : "start")};
   width: ${(p) => p?.width};
+
+  span {
+    display: flex;
+    width: 100%;
+    justify-content: ${(p) => (p.cellAlign ? p.cellAlign : "flex-start")};
+  }
 `;
-
-// const IndeterminateCheckbox = React.forwardRef<HTMLInputElement>(
-//   (
-//     { indeterminate, ...rest }: { indeterminate: boolean },
-//     ref: React.MutableRefObject<HTMLInputElement | null>
-//   ) => {
-//     const defaultRef = React.useRef<HTMLInputElement | null>();
-//     const resolvedRef = ref || defaultRef;
-
-//     React.useEffect(() => {
-//       resolvedRef.current.indeterminate = indeterminate;
-//     }, [resolvedRef, indeterminate]);
-
-//     return (
-//       <>
-//         <input type="checkbox" ref={resolvedRef} {...rest} />
-//       </>
-//     );
-//   }
-// );

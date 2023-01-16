@@ -86,7 +86,6 @@ export default function MemberPage() {
       },
       options: {
         width: "100px",
-        disableSort: true,
         headerAlign: "center",
         cellAlign: "center",
       },
@@ -111,7 +110,6 @@ export default function MemberPage() {
       },
       options: {
         width: "150px",
-        disableSort: true,
         headerAlign: "center",
         cellAlign: "center",
       },
@@ -152,6 +150,7 @@ export default function MemberPage() {
       )}
       <PageWrapper>
         <Table
+          id="member-management-table"
           columns={columns}
           data={getData(79)}
           fetchData={(sortOption) => {
