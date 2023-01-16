@@ -1,6 +1,7 @@
-import styled from "@emotion/styled";
-import { css, SerializedStyles, useTheme } from "@emotion/react";
 import { PropsWithChildren } from "react";
+import styled from "@emotion/styled";
+import { css, SerializedStyles } from "@emotion/react";
+import theme from "styles/theme";
 
 type ChipPropTypes = {
   size: "sm" | "md";
@@ -12,34 +13,27 @@ export default function Chip({
   active = false,
   children,
 }: PropsWithChildren<ChipPropTypes>) {
-  const theme = useTheme();
-
-  const SIZES = {
-    sm: css`
-      --chip-padding: 2px 8px;
-    `,
-    md: css`
-      --chip-padding: 8px 12px;
-    `,
-  };
-
   const typography = {
     sm: theme.typography.body4,
     md: theme.typography.body3,
   };
-
   const sizeStyle = SIZES[size];
+
   return (
-    <StyledChip
-      theme={theme}
-      active={active}
-      sizeStyle={sizeStyle}
-      typography={typography[size]}
-    >
+    <StyledChip active={active} sizeStyle={sizeStyle} typography={typography[size]}>
       {children}
     </StyledChip>
   );
 }
+
+const SIZES = {
+  sm: css`
+    --chip-padding: 2px 8px;
+  `,
+  md: css`
+    --chip-padding: 8px 12px;
+  `,
+};
 
 const StyledChip = styled.div<{
   sizeStyle: SerializedStyles;
@@ -57,25 +51,17 @@ const StyledChip = styled.div<{
   gap: 4px;
   border-radius: 15.5px;
 
-  ${(p) => p.theme.typography.weightMedium};
+  ${theme.typography.weightMedium};
 
   color: ${(p) =>
-    p.active
-      ? p.theme.palette.colors.basic["white"]
-      : p.theme.palette.colors.gray[500]};
+    p.active ? theme.palette.colors.basic["white"] : theme.palette.colors.gray[500]};
 
   background: ${(p) =>
-    p.active
-      ? p.theme.palette.colors.primary[500]
-      : p.theme.palette.colors.gray[200]};
+    p.active ? theme.palette.colors.primary[500] : theme.palette.colors.gray[200]};
   &:hover {
     color: ${(p) =>
-      p.active
-        ? p.theme.palette.colors.basic["white"]
-        : p.theme.palette.colors.gray[600]};
+      p.active ? theme.palette.colors.basic["white"] : theme.palette.colors.gray[600]};
     background: ${(p) =>
-      p.active
-        ? p.theme.palette.colors.primary[500]
-        : p.theme.palette.colors.primary[100]};
+      p.active ? theme.palette.colors.primary[500] : theme.palette.colors.primary[100]};
   }
 `;

@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import { useTheme } from "@emotion/react";
 import Link from "next/link";
 import { useRecoilValue } from "recoil";
 import { authState } from "states/auth";
 import Image from "next/image";
 import Logo from "assets/Logo/Logo.png";
+import theme from "styles/theme";
 
 type MenuType = Array<{ route: string; name: string }>;
 
@@ -14,11 +14,10 @@ const UserProfileBox = () => {
 
 export default function Header(props: { menus: MenuType }) {
   const { menus } = props;
-  const theme = useTheme();
   const authValue = useRecoilValue(authState);
 
   return (
-    <StyledHeader theme={theme}>
+    <StyledHeader>
       <Image src={Logo.src} alt="어쩌다보니비건 로고" width={165} height={24} />
       <Menu>
         {menus.map((item) => {
@@ -38,7 +37,7 @@ const StyledHeader = styled.header`
   height: 70px;
   flex: 0 0 70px;
   width: calc(100% - 96px);
-  background: ${(p) => p.theme.palette.colors.primary[50]};
+  background: ${theme.palette.colors.primary[50]};
   display: flex;
   align-items: center;
   padding: 0px 48px;
@@ -53,8 +52,8 @@ const Menu = styled.div`
 `;
 
 const MenuItem = styled.div`
-  ${(p) => p.theme.typography.body2}
-  ${(p) => p.theme.typography.weightBold}
-  color: ${(p) => p.theme.palette.colors.basic.black};
+  ${theme.typography.body2}
+  ${theme.typography.weightBold}
+  color: ${theme.palette.colors.basic.black};
   cursor: pointer;
 `;

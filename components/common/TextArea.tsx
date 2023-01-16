@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
-import { useTheme } from "@emotion/react";
 import { ChangeEvent } from "react";
+import styled from "@emotion/styled";
+import theme from "styles/theme";
 
 type TextAreaPropsType = {
   id?: string;
@@ -24,16 +24,13 @@ export default function TextArea({
   helpText,
   ...props
 }: TextAreaPropsType) {
-  const theme = useTheme();
-
   return (
-    <LabelField theme={theme}>
+    <LabelField>
       {label && <div className="label">{label}</div>}
       <StyledTextArea
         placeholder={placeholder}
         onChange={onChange}
         value={value}
-        theme={theme}
         style={{ width, height }}
         {...props}
       />
@@ -47,29 +44,29 @@ const LabelField = styled.div`
   flex-direction: column;
   gap: 8px;
   .label {
-    ${(p) => p.theme.typography.body3}
-    ${(p) => p.theme.typography.weightMedium}
-     color: ${(p) => p.theme.palette.colors.basic.black}
+    ${theme.typography.body3}
+    ${theme.typography.weightMedium}
+     color: ${theme.palette.colors.basic.black}
   }
   .helpText {
-    ${(p) => p.theme.typography.body4}
-    ${(p) => p.theme.typography.weightRegular}
-    color: ${(p) => p.theme.palette.colors.gray[400]};
+    ${theme.typography.body4}
+    ${theme.typography.weightRegular}
+    color: ${theme.palette.colors.gray[400]};
     text-align: right;
   }
 `;
 
 const StyledTextArea = styled.textarea`
-  ${(p) => p.theme.typography.body3}
-  ${(p) => p.theme.typography.weightRegular}
+  ${theme.typography.body3}
+  ${theme.typography.weightRegular}
   
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 12px 16px;
 
-  background: ${(p) => p.theme.palette.colors.basic.white};
-  border: 1px solid ${(p) => p.theme.palette.colors.gray[300]};
+  background: ${theme.palette.colors.basic.white};
+  border: 1px solid ${theme.palette.colors.gray[300]};
   border-radius: 5px;
   box-sizing: border-box;
 
@@ -80,10 +77,10 @@ const StyledTextArea = styled.textarea`
   -moz-appearance: none;
 
   ::placeholder {
-    color: ${(p) => p.theme.palette.colors.gray[400]};
+    color: ${theme.palette.colors.gray[400]};
   }
   &:focus {
-    border: 1px solid ${(p) => p.theme.palette.colors.gray[500]};
+    border: 1px solid ${theme.palette.colors.gray[500]};
     outline: none;
   }
 `;

@@ -1,6 +1,7 @@
 import { MouseEvent, PropsWithChildren } from "react";
 import styled from "@emotion/styled";
-import { css, useTheme, SerializedStyles } from "@emotion/react";
+import { css, SerializedStyles } from "@emotion/react";
+import theme from "styles/theme";
 
 type ButtonProps = {
   id?: string;
@@ -23,61 +24,6 @@ export default function Button({
   children,
   ...props
 }: PropsWithChildren<ButtonProps>) {
-  const theme = useTheme();
-  const COLORS = {
-    primary: css`
-      --button-bg-color: ${theme.palette.colors.primary[500]};
-      --button-border-color: ${theme.palette.colors.primary[500]};
-      --button-hover-color: ${theme.palette.colors.primary[600]};
-      --button-loading-color: ${theme.palette.colors.primary[400]};
-      --button-disabled-color: ${theme.palette.colors.primary[100]};
-      --button-font-color: ${theme.palette.colors.basic["white"]};
-      --button-loading-font-color: ${theme.palette.colors.basic["white"]};
-      --button-disabled-font-color: ${theme.palette.colors.primary[200]};
-    `,
-    secondary: css`
-      --button-bg-color: ${theme.palette.colors.gray[200]};
-      --button-border-color: ${theme.palette.colors.gray[200]};
-      --button-hover-color: ${theme.palette.colors.gray[300]};
-      --button-loading-color: ${theme.palette.colors.gray[200]};
-      --button-disabled-color: ${theme.palette.colors.gray[200]};
-      --button-font-color: ${theme.palette.colors.gray[900]};
-      --button-loading-font-color: ${theme.palette.colors.gray[600]};
-      --button-disabled-font-color: ${theme.palette.colors.gray[400]};
-    `,
-    tertiary: css`
-      --button-bg-color: ${theme.palette.colors.basic["white"]};
-      --button-border-color: ${theme.palette.colors.gray[300]};
-      --button-hover-color: ${theme.palette.colors.gray[100]};
-      --button-loading-color: ${theme.palette.colors.basic["white"]};
-      --button-disabled-color: ${theme.palette.colors.basic["white"]};
-      --button-font-color: ${theme.palette.colors.gray[900]};
-      --button-loading-font-color: ${theme.palette.colors.gray[500]};
-      --button-disabled-font-color: ${theme.palette.colors.gray[400]};
-    `,
-  };
-
-  const SIZES = {
-    sm: css`
-      --button-size-height: 36px;
-      --button-padding: 6px 16px;
-      --button-radius: 25px;
-      --button-gap: 6px;
-    `,
-    md: css`
-      --button-size-height: 44px;
-      --button-padding: 10px 24px;
-      --button-radius: 25px;
-      --button-gap: 8px;
-    `,
-    lg: css`
-      --button-size-height: 56px;
-      --button-padding: 16px 24px;
-      --button-radius: 30px;
-      --button-gap: 8px;
-    `,
-  };
-
   const colorStyle = COLORS[type];
   const sizeStyle = SIZES[size];
 
@@ -95,6 +41,60 @@ export default function Button({
   );
 }
 
+const COLORS = {
+  primary: css`
+    --button-bg-color: ${theme.palette.colors.primary[500]};
+    --button-border-color: ${theme.palette.colors.primary[500]};
+    --button-hover-color: ${theme.palette.colors.primary[600]};
+    --button-loading-color: ${theme.palette.colors.primary[400]};
+    --button-disabled-color: ${theme.palette.colors.primary[100]};
+    --button-font-color: ${theme.palette.colors.basic["white"]};
+    --button-loading-font-color: ${theme.palette.colors.basic["white"]};
+    --button-disabled-font-color: ${theme.palette.colors.primary[200]};
+  `,
+  secondary: css`
+    --button-bg-color: ${theme.palette.colors.gray[200]};
+    --button-border-color: ${theme.palette.colors.gray[200]};
+    --button-hover-color: ${theme.palette.colors.gray[300]};
+    --button-loading-color: ${theme.palette.colors.gray[200]};
+    --button-disabled-color: ${theme.palette.colors.gray[200]};
+    --button-font-color: ${theme.palette.colors.gray[900]};
+    --button-loading-font-color: ${theme.palette.colors.gray[600]};
+    --button-disabled-font-color: ${theme.palette.colors.gray[400]};
+  `,
+  tertiary: css`
+    --button-bg-color: ${theme.palette.colors.basic["white"]};
+    --button-border-color: ${theme.palette.colors.gray[300]};
+    --button-hover-color: ${theme.palette.colors.gray[100]};
+    --button-loading-color: ${theme.palette.colors.basic["white"]};
+    --button-disabled-color: ${theme.palette.colors.basic["white"]};
+    --button-font-color: ${theme.palette.colors.gray[900]};
+    --button-loading-font-color: ${theme.palette.colors.gray[500]};
+    --button-disabled-font-color: ${theme.palette.colors.gray[400]};
+  `,
+};
+
+const SIZES = {
+  sm: css`
+    --button-size-height: 36px;
+    --button-padding: 6px 16px;
+    --button-radius: 25px;
+    --button-gap: 6px;
+  `,
+  md: css`
+    --button-size-height: 44px;
+    --button-padding: 10px 24px;
+    --button-radius: 25px;
+    --button-gap: 8px;
+  `,
+  lg: css`
+    --button-size-height: 56px;
+    --button-padding: 16px 24px;
+    --button-radius: 30px;
+    --button-gap: 8px;
+  `,
+};
+
 const StyledButton = styled.button<{
   colorStyle: SerializedStyles;
   sizeStyle: SerializedStyles;
@@ -105,8 +105,8 @@ const StyledButton = styled.button<{
   display: flex;
   cursor: ${(p) => (p.disabled ? `default` : `pointer`)};
 
-  ${(p) => p.theme.typography.weightBold};
-  ${(p) => p.theme.typography.body3};
+  ${theme.typography.weightBold};
+  ${theme.typography.body3};
 
   gap: var(--button-gap);
   padding: var(--button-padding);

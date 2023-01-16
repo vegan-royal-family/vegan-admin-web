@@ -1,8 +1,9 @@
 import { MouseEvent, PropsWithChildren } from "react";
-import { keyframes, useTheme } from "@emotion/react";
+import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import Button from "components/common/Button";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import theme from "styles/theme";
 
 type RightSheetPropsType = {
   visible?: boolean;
@@ -22,23 +23,16 @@ export default function RightSheet({
   closeButtonText = "취소",
   saveButtonText = "저장",
 }: PropsWithChildren<RightSheetPropsType>) {
-  const theme = useTheme();
-
   return (
     <Overlay>
-      <StyledPopup visible={visible} theme={theme}>
+      <StyledPopup visible={visible}>
         {title && <TitleBox>{title}</TitleBox>}
         <PerfectScrollbar>
-          <Content theme={theme}>{children}</Content>
+          <Content>{children}</Content>
         </PerfectScrollbar>
         <ButtonBox>
           {onSave && (
-            <Button
-              type="primary"
-              size="md"
-              onClick={onSave}
-              style={{ marginRight: 14 }}
-            >
+            <Button type="primary" size="md" onClick={onSave} style={{ marginRight: 14 }}>
               {saveButtonText}
             </Button>
           )}
@@ -66,10 +60,10 @@ const Overlay = styled.div`
 `;
 
 const TitleBox = styled.div`
-  ${(p) => p.theme.typography.body1}
-  ${(p) => p.theme.typography.weightBold}
+  ${theme.typography.body1}
+  ${theme.typography.weightBold}
   
-  color: ${(p) => p.theme.palette.colors.basic.black};
+  color: ${theme.palette.colors.basic.black};
   text-align: left;
   padding: 40px 32px;
 `;
@@ -99,7 +93,7 @@ const StyledPopup = styled.div<{ visible: boolean }>`
   right: 0;
   width: 800px;
   height: 100%;
-  background: ${(p) => p.theme.palette.colors.basic.white};
+  background: ${theme.palette.colors.basic.white};
   animation: ${(p) => (p.visible ? fadeInLeft : fadeInRight)} 1s;
 
   box-shadow: 0 0 0 100vw rgba(0, 0, 0, 0.5);

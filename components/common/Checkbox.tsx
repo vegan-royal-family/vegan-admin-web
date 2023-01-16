@@ -1,6 +1,6 @@
-import { useTheme } from "@emotion/react";
-import styled from "@emotion/styled";
 import { MouseEvent, useEffect, useState } from "react";
+import styled from "@emotion/styled";
+import theme from "styles/theme";
 import Icon from "components/common/Icon";
 
 type CheckboxPropsType = {
@@ -18,7 +18,6 @@ export default function Checkbox({
   checked,
   onChange,
 }: CheckboxPropsType) {
-  const theme = useTheme();
   const [inputRef, setRef] = useState<HTMLInputElement>();
 
   useEffect(() => {
@@ -28,7 +27,7 @@ export default function Checkbox({
   }, [inputRef, checked]);
 
   return (
-    <CheckboxWrapper theme={theme}>
+    <CheckboxWrapper>
       <input
         disabled={disabled}
         ref={(ref) => {
@@ -63,7 +62,7 @@ const CheckboxWrapper = styled.div`
     width: 20px;
     height: 20px;
     background-color: transparent;
-    border: 1px solid ${(p) => p.theme.palette.colors.gray[500]};
+    border: 1px solid ${theme.palette.colors.gray[500]};
     box-sizing: border-box;
     border-radius: 5px;
     svg {
@@ -78,7 +77,7 @@ const CheckboxWrapper = styled.div`
 
   input:checked ~ .custom-checkbox-box {
     border: none;
-    background-color: ${(p) => p.theme.palette.colors.primary[500]};
+    background-color: ${theme.palette.colors.primary[500]};
     svg {
       opacity: 1;
       visibility: visible;
@@ -88,18 +87,18 @@ const CheckboxWrapper = styled.div`
   input:disabled {
     &:checked {
       & ~ .custom-checkbox-box {
-        background-color: ${(p) => p.theme.palette.colors.gray[300]};
+        background-color: ${theme.palette.colors.gray[300]};
       }
     }
     &:not(:checked) {
       & ~ .custom-checkbox-box {
-        border: 1px solid ${(p) => p.theme.palette.colors.gray[300]};
+        border: 1px solid ${theme.palette.colors.gray[300]};
       }
     }
   }
 
   .custom-checkbox-label {
-    ${(p) => p.theme.typography.body3}
+    ${theme.typography.body3}
     margin-left: 10px;
     cursor: pointer;
     user-select: none;
