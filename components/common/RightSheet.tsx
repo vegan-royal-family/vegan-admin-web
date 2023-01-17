@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Button from "components/common/Button";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import theme from "styles/theme";
+import { ModalPortal } from "components/common/Portal";
 
 type RightSheetPropsType = {
   visible?: boolean;
@@ -24,26 +25,33 @@ export default function RightSheet({
   saveButtonText = "저장",
 }: PropsWithChildren<RightSheetPropsType>) {
   return (
-    <Overlay>
-      <StyledPopup visible={visible}>
-        {title && <TitleBox>{title}</TitleBox>}
-        <PerfectScrollbar>
-          <Content>{children}</Content>
-        </PerfectScrollbar>
-        <ButtonBox>
-          {onSave && (
-            <Button type="primary" size="md" onClick={onSave} style={{ marginRight: 14 }}>
-              {saveButtonText}
-            </Button>
-          )}
-          {onClose && (
-            <Button type="secondary" size="md" onClick={onClose}>
-              {closeButtonText}
-            </Button>
-          )}
-        </ButtonBox>
-      </StyledPopup>
-    </Overlay>
+    <ModalPortal>
+      <Overlay>
+        <StyledPopup visible={visible}>
+          {title && <TitleBox>{title}</TitleBox>}
+          <PerfectScrollbar>
+            <Content>{children}</Content>
+          </PerfectScrollbar>
+          <ButtonBox>
+            {onSave && (
+              <Button
+                type="primary"
+                size="md"
+                onClick={onSave}
+                style={{ marginRight: 14 }}
+              >
+                {saveButtonText}
+              </Button>
+            )}
+            {onClose && (
+              <Button type="secondary" size="md" onClick={onClose}>
+                {closeButtonText}
+              </Button>
+            )}
+          </ButtonBox>
+        </StyledPopup>
+      </Overlay>
+    </ModalPortal>
   );
 }
 
