@@ -1,7 +1,8 @@
-import { MouseEvent, PropsWithChildren } from "react";
+import { MouseEvent, PropsWithChildren, ReactNode } from "react";
 import styled from "@emotion/styled";
 import { css, SerializedStyles } from "@emotion/react";
 import theme from "styles/theme";
+import CircleSpinner from "./Spinner";
 
 type ButtonProps = {
   id?: string;
@@ -9,34 +10,57 @@ type ButtonProps = {
   type?: "primary" | "secondary" | "tertiary";
   size?: "sm" | "md" | "lg";
   label?: string;
+  loading?: boolean;
   disabled?: boolean;
   width?: string | number;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => any;
   style?: any;
+  prefixContent?: ReactNode;
+  suffixContent?: ReactNode;
 };
 
 export default function Button({
   type = "primary",
   size = "md",
   label,
+  loading = false,
   disabled,
   width,
   children,
+  prefixContent,
+  suffixContent,
   ...props
 }: PropsWithChildren<ButtonProps>) {
   const colorStyle = COLORS[type];
   const sizeStyle = SIZES[size];
 
+  const spinnerColor = {
+    firstColor: type === "primary" ? null : "#64748B",
+    secondColor: type === "primary" ? null : "#64748B",
+  };
+
   return (
     <StyledButton
       type="button"
-      disabled={disabled}
+      disabled={disabled || loading}
       colorStyle={colorStyle}
       sizeStyle={sizeStyle}
       theme={theme}
+      loading={loading}
       {...props}
     >
-      {label ?? children}
+      {loading ? (
+        <>
+          <span>{label ?? children}</span>
+          <CircleSpinner size="16px" {...spinnerColor} />
+        </>
+      ) : (
+        <>
+          {prefixContent}
+          {label ?? children}
+          {suffixContent}
+        </>
+      )}
     </StyledButton>
   );
 }
@@ -44,7 +68,7 @@ export default function Button({
 const COLORS = {
   primary: css`
     --button-bg-color: ${theme.palette.colors.primary[500]};
-    --button-border-color: ${theme.palette.colors.primary[500]};
+    --button-border-style: none;
     --button-hover-color: ${theme.palette.colors.primary[600]};
     --button-loading-color: ${theme.palette.colors.primary[400]};
     --button-disabled-color: ${theme.palette.colors.primary[100]};
@@ -54,7 +78,7 @@ const COLORS = {
   `,
   secondary: css`
     --button-bg-color: ${theme.palette.colors.gray[200]};
-    --button-border-color: ${theme.palette.colors.gray[200]};
+    --button-border-style: none;
     --button-hover-color: ${theme.palette.colors.gray[300]};
     --button-loading-color: ${theme.palette.colors.gray[200]};
     --button-disabled-color: ${theme.palette.colors.gray[200]};
@@ -64,7 +88,7 @@ const COLORS = {
   `,
   tertiary: css`
     --button-bg-color: ${theme.palette.colors.basic["white"]};
-    --button-border-color: ${theme.palette.colors.gray[300]};
+    --button-border-style: 1px solid ${theme.palette.colors.gray[300]};
     --button-hover-color: ${theme.palette.colors.gray[100]};
     --button-loading-color: ${theme.palette.colors.basic["white"]};
     --button-disabled-color: ${theme.palette.colors.basic["white"]};
@@ -96,6 +120,7 @@ const SIZES = {
 };
 
 const StyledButton = styled.button<{
+  loading: boolean;
   colorStyle: SerializedStyles;
   sizeStyle: SerializedStyles;
 }>`
@@ -103,6 +128,7 @@ const StyledButton = styled.button<{
   ${(p) => p.sizeStyle}
 
   display: flex;
+  align-items: center;
   cursor: ${(p) => (p.disabled ? `default` : `pointer`)};
 
   ${theme.typography.weightBold};
@@ -111,7 +137,7 @@ const StyledButton = styled.button<{
   gap: var(--button-gap);
   padding: var(--button-padding);
   height: var(--button-size-height);
-  border: 1px solid var(--button-border-color);
+  border: var(--button-border-style);
   border-radius: var(--button-radius);
   background: var(--button-bg-color);
   color: var(--button-font-color);
@@ -122,7 +148,17 @@ const StyledButton = styled.button<{
   }
 
   &:disabled {
-    background: var(--button-disabled-color);
-    color: var(--button-disabled-font-color);
+    background: var(
+      ${(p) =>
+        p.loading ? "--button-loading-color" : "--button-disabled-color"}
+    );
+    color: var(
+      ${(p) =>
+        p.loading ? "--button-font-color" : "--button-disabled-font-color"}
+    );
+  }
+
+  svg > path {
+    fill: var(--button-font-color);
   }
 `;

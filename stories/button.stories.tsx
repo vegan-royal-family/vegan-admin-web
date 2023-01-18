@@ -1,4 +1,5 @@
 import Button from "components/common/Button";
+import Icon from "components/common/Icon";
 
 export default {
   title: "components/Button",
@@ -23,4 +24,31 @@ SecondaryButton.args = {
   size: "md",
   label: "Button",
   disabled: false,
+};
+
+export const PrefixIconButton = Template.bind({});
+PrefixIconButton.args = {
+  type: "primary",
+  size: "md",
+  label: "Button",
+  disabled: false,
+  prefixContent: <Icon icon="add-one" size="sm" />,
+};
+
+export const SuffixIconButton = Template.bind({});
+SuffixIconButton.args = {
+  type: "primary",
+  size: "md",
+  label: "Button",
+  disabled: false,
+  suffixContent: <Icon icon="right" size="sm" />,
+};
+
+export const LoadingButton = Template.bind({});
+LoadingButton.args = {
+  type: "primary",
+  size: "md",
+  label: "Button",
+  disabled: false,
+  loading: true,
 };
