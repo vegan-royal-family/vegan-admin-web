@@ -5,6 +5,11 @@ import Head from "next/head";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "@emotion/react";
 import theme from "../styles/theme";
+import { ApolloProvider } from "react-apollo";
+import { QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query-devtools";
+import graphqlClient from "utils/graphqlClient";
+import reactQueryClient from "utils/reactQueryClient";
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
@@ -14,9 +19,14 @@ const App = ({ Component, pageProps }: AppProps) => {
         <title>어쩌다보니 비건?!</title>
       </Head>
       <RecoilRoot>
-        <ThemeProvider theme={theme}>
-          <Component {...pageProps} />
-        </ThemeProvider>
+        <ApolloProvider client={graphqlClient}>
+          <QueryClientProvider client={reactQueryClient}>
+            <ReactQueryDevtools initialIsOpen={false} />
+            <ThemeProvider theme={theme}>
+              <Component {...pageProps} />
+            </ThemeProvider>
+          </QueryClientProvider>
+        </ApolloProvider>
       </RecoilRoot>
     </>
   );
