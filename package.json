@@ -21,6 +21,7 @@
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "@popperjs/core": "^2.11.6",
     "apollo-boost": "^0.4.9",
     "axios": "~0.27.2",
     "dayjs": "^1.11.7",

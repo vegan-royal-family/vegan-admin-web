@@ -43,7 +43,7 @@ export default function Input({
   );
 }
 
-const LabelField = styled.div<{ disabled: boolean }>`
+export const LabelField = styled.div<{ disabled: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -51,13 +51,17 @@ const LabelField = styled.div<{ disabled: boolean }>`
     ${theme.typography.body3}
     ${theme.typography.weightMedium}
      color: ${(p) =>
-      p.disabled ? theme.palette.colors.gray[300] : theme.palette.colors.basic.black}
+      p.disabled
+        ? theme.palette.colors.gray[300]
+        : theme.palette.colors.basic.black}
   }
   .helpText {
     ${theme.typography.body4}
     ${theme.typography.weightRegular}
     color: ${(p) =>
-      p.disabled ? theme.palette.colors.gray[300] : theme.palette.colors.gray[500]};
+      p.disabled
+        ? theme.palette.colors.gray[300]
+        : theme.palette.colors.gray[500]};
   }
 `;
 
