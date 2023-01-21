@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styled from "@emotion/styled";
-import { createPopper } from "@popperjs/core";
 import theme from "styles/theme";
-import Icon from "./Icon";
 import useOnClickOutside from "utils/useOnClickOutside";
+import Icon from "./Icon";
+import { css, SerializedStyles } from "@emotion/react";
 
 type OptionType = {
   id: string | number;
@@ -36,37 +36,18 @@ export default function Dropdown({
   disabled = false,
 }: DropdownTypes) {
   const clickOutsideRef = useRef();
-  const inputRef = useRef();
-  const selectListRef = useRef();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(defaultValueId);
-
-  useEffect(() => {
-    if (inputRef && selectListRef) {
-      createPopper(inputRef?.current, selectListRef?.current, {
-        placement: "bottom",
-        modifiers: [
-          {
-            name: "offset",
-            options: {
-              offset: [0, 10],
-            },
-          },
-        ],
-      });
-    }
-  }, [inputRef, selectListRef]);
 
   useOnClickOutside(clickOutsideRef, () => setIsOpen(false));
 
   return (
-    <div className="custom-dropdown-input">
+    <div className="custom-dropdown-input" style={{ width }}>
       {label && <Label className="label">{label}</Label>}
       <div ref={clickOutsideRef} style={{ position: "relative", width }}>
         <StyledInput
           id={id}
           className={className}
-          ref={inputRef}
           placeholder={placeholder}
           width={width}
           height={height}
@@ -83,92 +64,68 @@ export default function Dropdown({
           )}
           <Icon icon={isOpen ? "up" : "down"} size="sm" />
         </StyledInput>
-        <OptionListContainer ref={selectListRef} width={width} visible={isOpen}>
-          <ul>
-            {options.map((option) => {
-              const isSelected = option.id === selectedId;
-              return (
-                <li
-                  className={
-                    isSelected ? "selected-option-item" : "option-item"
-                  }
-                  onClick={() => {
-                    onChange(option);
-                    setSelectedId(option.id);
-                    setIsOpen(false);
-                  }}
-                >
-                  {option.name}
-                </li>
-              );
-            })}
-          </ul>
-        </OptionListContainer>
+        {isOpen && (
+          <OptionListContainer
+            width={width}
+            animation={isOpen ? openAnimation : closeAnimation}
+          >
+            <ul>
+              {options.map((option) => {
+                const isSelected = option.id === selectedId;
+                return (
+                  <li
+                    className={
+                      isSelected ? "selected-option-item" : "option-item"
+                    }
+                    onClick={() => {
+                      onChange(option);
+                      setSelectedId(option.id);
+                      setIsOpen(false);
+                    }}
+                  >
+                    {option.name}
+                  </li>
+                );
+              })}
+            </ul>
+          </OptionListContainer>
+        )}
       </div>
     </div>
   );
 }
 
-const OptionListContainer = styled.div<{
-  width: string | number;
-  visible: boolean;
-}>`
-  ${theme.typography.body3}
-  ${theme.typography.weightMedium}
-
-  @keyframes growOut {
+const openAnimation = css`
+  @keyframes scaleUp {
     0% {
       transform: scale(0);
-    }
-    80% {
-      transform: scale(1.1);
     }
     100% {
       transform: scale(1);
     }
   }
+  animation: scaleUp 200ms ease-in-out forwards;
+  visibility: visible;
+`;
 
-  display: flex;
-  flex-direction: column;
-  background: #ffffff;
-  border-radius: 4px;
-  border: 1px solid ${theme.palette.colors.gray[500]};
-  box-sizing: border-box;
-  width: ${(p) => p.width};
-  opacity: ${(p) => (p.visible ? 1 : 0)};
-  animation: growOut 300ms ease-in-out forwards;
-
-  ul {
-    padding: 0;
-    margin: 0;
-    & > li:first-child {
-      border-radius: 4px 4px 0 0;
+const closeAnimation = css`
+  @keyframes scaleDown {
+    0% {
+      visibility: visible;
+      transform: scale(1);
     }
-    & > li:last-child {
-      border-radius: 0 0 4px 4px;
-    }
-
-    li {
-      background: #fff;
-      padding: 12px 20px;
-      cursor: pointer;
-      user-select: none;
-      &:hover {
-        color: ${theme.palette.colors.primary[500]};
-        background: ${theme.palette.colors.primary[100]};
-      }
-    }
-
-    .selected-option-item {
-      color: ${theme.palette.colors.primary[500]};
-      background: ${theme.palette.colors.primary[100]};
+    100% {
+      visibility: hidden;
+      transform: scale(0);
     }
   }
+  animation: scaleDown 200ms ease-in-out forwards;
 `;
 
 const Label = styled.div<{ disabled?: boolean }>`
   ${theme.typography.body3}
   ${theme.typography.weightMedium}
+
   display: inline-block;
   color: ${(p) =>
     p.disabled
@@ -209,14 +166,57 @@ const StyledInput = styled.div<{
     color: ${theme.palette.colors.gray[400]};
   }
 
-  .disabled {
+  /* .disabled {
     background-color: ${theme.palette.colors.gray[50]};
     border: 1px solid ${theme.palette.colors.gray[200]};
     color: ${theme.palette.colors.gray[400]};
-  }
-
-  /* &:focus {
-    border: 1px solid ${theme.palette.colors.gray[500]};
-    outline: none;
   } */
+`;
+
+const OptionListContainer = styled.div<{
+  width: string | number;
+  animation: SerializedStyles;
+}>`
+  ${theme.typography.body3}
+  ${theme.typography.weightMedium}
+
+  visibility: hidden;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-top: 4px;
+  box-shadow: rgb(0 0 0 / 20%) 0px 5px 5px -3px,
+    rgb(0 0 0 / 14%) 0px 8px 10px 1px, rgb(0 0 0 / 12%) 0px 3px 14px 2px;
+  width: ${(p) => p.width};
+  ${(p) => p.animation}
+
+  ul {
+    padding: 0;
+    margin: 0;
+    & > li:first-child {
+      border-radius: 5px 5px 0 0;
+    }
+    & > li:last-child {
+      border-radius: 0 0 5px 5px;
+    }
+
+    li {
+      background: #fff;
+      padding: 12px 20px;
+      cursor: pointer;
+      user-select: none;
+      &:hover {
+        color: ${theme.palette.colors.primary[500]};
+        background: ${theme.palette.colors.primary[100]};
+      }
+    }
+
+    .selected-option-item {
+      color: ${theme.palette.colors.primary[500]};
+      background: ${theme.palette.colors.primary[100]};
+    }
+  }
 `;

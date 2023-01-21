@@ -10,7 +10,8 @@ const Template = (args) => {
     console.log(selectedOption);
   };
   return (
-    <div>
+    <div style={{ display: "flex", width: "100%", gap: "16px" }}>
+      <Dropdown {...args} onChange={onChange} />
       <Dropdown {...args} onChange={onChange} />
     </div>
   );
