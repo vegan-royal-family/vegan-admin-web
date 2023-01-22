@@ -4,6 +4,7 @@ import theme from "styles/theme";
 import { scaleUpAnimation, scaleDownAnimation } from "styles/animation";
 import useOnClickOutside from "utils/useOnClickOutside";
 import Icon from "./Icon";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 type OptionType = {
   id: string | number;
@@ -70,21 +71,23 @@ export default function Dropdown({
           <Icon icon={isDropdownOpen ? "up" : "down"} size="sm" />
         </StyledInput>
         <DropdownContainer width={width} visible={isDropdownOpen}>
-          <ul>
-            {options.map((option) => {
-              const isSelected = option.id === selectedId;
-              return (
-                <li
-                  className={
-                    isSelected ? "selected-option-item" : "option-item"
-                  }
-                  onClick={() => onOptionClicked(option)}
-                >
-                  {option.name}
-                </li>
-              );
-            })}
-          </ul>
+          <PerfectScrollbar>
+            <ul>
+              {options.map((option) => {
+                const isSelected = option.id === selectedId;
+                return (
+                  <li
+                    className={
+                      isSelected ? "selected-option-item" : "option-item"
+                    }
+                    onClick={() => onOptionClicked(option)}
+                  >
+                    {option.name}
+                  </li>
+                );
+              })}
+            </ul>
+          </PerfectScrollbar>
         </DropdownContainer>
       </div>
     </div>
@@ -164,6 +167,7 @@ const DropdownContainer = styled.div<{
   visibility: ${(p) => (p.visible ? "visible" : "hidden")};
   animation: ${(p) =>
     `${p.visible ? "scaleUp" : "scaleDown"} 200ms ease-in-out forwards`};
+  max-height: 242px;
 
   ul {
     padding: 0;
