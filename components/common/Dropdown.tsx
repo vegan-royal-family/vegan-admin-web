@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import theme from "styles/theme";
+import { scaleUpAnimation, scaleDownAnimation } from "styles/animation";
 import useOnClickOutside from "utils/useOnClickOutside";
 import Icon from "./Icon";
-import { css, SerializedStyles } from "@emotion/react";
 
 type OptionType = {
   id: string | number;
@@ -36,14 +36,21 @@ export default function Dropdown({
   disabled = false,
 }: DropdownTypes) {
   const clickOutsideRef = useRef();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(defaultValueId);
 
-  useOnClickOutside(clickOutsideRef, () => setIsOpen(false));
+  const onOptionClicked = (option: OptionType) => {
+    onChange(option);
+    setSelectedId(option.id);
+    setIsDropdownOpen(false);
+  };
+
+  // ref 바깥 영역을 클릭했을 때 dropdown이 닫히도록 함
+  useOnClickOutside(clickOutsideRef, () => setIsDropdownOpen(false));
 
   return (
     <div className="custom-dropdown-input" style={{ width }}>
-      {label && <Label className="label">{label}</Label>}
+      {label && <StyledLabel className="label">{label}</StyledLabel>}
       <div ref={clickOutsideRef} style={{ position: "relative", width }}>
         <StyledInput
           id={id}
@@ -51,9 +58,7 @@ export default function Dropdown({
           placeholder={placeholder}
           width={width}
           height={height}
-          onClick={() => {
-            setIsOpen((value) => !value);
-          }}
+          onClick={() => setIsDropdownOpen((value) => !value)}
         >
           {selectedId ? (
             <span className="selected-item">
@@ -62,67 +67,31 @@ export default function Dropdown({
           ) : (
             <span className="placeholder">{placeholder}</span>
           )}
-          <Icon icon={isOpen ? "up" : "down"} size="sm" />
+          <Icon icon={isDropdownOpen ? "up" : "down"} size="sm" />
         </StyledInput>
-        {isOpen && (
-          <OptionListContainer
-            width={width}
-            animation={isOpen ? openAnimation : closeAnimation}
-          >
-            <ul>
-              {options.map((option) => {
-                const isSelected = option.id === selectedId;
-                return (
-                  <li
-                    className={
-                      isSelected ? "selected-option-item" : "option-item"
-                    }
-                    onClick={() => {
-                      onChange(option);
-                      setSelectedId(option.id);
-                      setIsOpen(false);
-                    }}
-                  >
-                    {option.name}
-                  </li>
-                );
-              })}
-            </ul>
-          </OptionListContainer>
-        )}
+        <DropdownContainer width={width} visible={isDropdownOpen}>
+          <ul>
+            {options.map((option) => {
+              const isSelected = option.id === selectedId;
+              return (
+                <li
+                  className={
+                    isSelected ? "selected-option-item" : "option-item"
+                  }
+                  onClick={() => onOptionClicked(option)}
+                >
+                  {option.name}
+                </li>
+              );
+            })}
+          </ul>
+        </DropdownContainer>
       </div>
     </div>
   );
 }
 
-const openAnimation = css`
-  @keyframes scaleUp {
-    0% {
-      transform: scale(0);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  animation: scaleUp 200ms ease-in-out forwards;
-  visibility: visible;
-`;
-
-const closeAnimation = css`
-  @keyframes scaleDown {
-    0% {
-      visibility: visible;
-      transform: scale(1);
-    }
-    100% {
-      visibility: hidden;
-      transform: scale(0);
-    }
-  }
-  animation: scaleDown 200ms ease-in-out forwards;
-`;
-
-const Label = styled.div<{ disabled?: boolean }>`
+const StyledLabel = styled.div<{ disabled?: boolean }>`
   ${theme.typography.body3}
   ${theme.typography.weightMedium}
 
@@ -173,14 +142,15 @@ const StyledInput = styled.div<{
   } */
 `;
 
-const OptionListContainer = styled.div<{
+const DropdownContainer = styled.div<{
   width: string | number;
-  animation: SerializedStyles;
+  visible: boolean;
 }>`
   ${theme.typography.body3}
   ${theme.typography.weightMedium}
+  ${scaleUpAnimation}
+  ${scaleDownAnimation}
 
-  visibility: hidden;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -191,17 +161,13 @@ const OptionListContainer = styled.div<{
   box-shadow: rgb(0 0 0 / 20%) 0px 5px 5px -3px,
     rgb(0 0 0 / 14%) 0px 8px 10px 1px, rgb(0 0 0 / 12%) 0px 3px 14px 2px;
   width: ${(p) => p.width};
-  ${(p) => p.animation}
+  visibility: ${(p) => (p.visible ? "visible" : "hidden")};
+  animation: ${(p) =>
+    `${p.visible ? "scaleUp" : "scaleDown"} 200ms ease-in-out forwards`};
 
   ul {
     padding: 0;
     margin: 0;
-    & > li:first-child {
-      border-radius: 5px 5px 0 0;
-    }
-    & > li:last-child {
-      border-radius: 0 0 5px 5px;
-    }
 
     li {
       background: #fff;
@@ -212,6 +178,12 @@ const OptionListContainer = styled.div<{
         color: ${theme.palette.colors.primary[500]};
         background: ${theme.palette.colors.primary[100]};
       }
+    }
+    & > li:first-child {
+      border-radius: 5px 5px 0 0;
+    }
+    & > li:last-child {
+      border-radius: 0 0 5px 5px;
     }
 
     .selected-option-item {

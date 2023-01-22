@@ -45,3 +45,41 @@ export const fadeoutToRightAnimation = css`
     }
   }
 `;
+
+export const scaleUpAnimation = css`
+  @-webkit-keyframes scaleUp {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes scaleUp {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+`;
+
+export const scaleDownAnimation = css`
+  @-webkit-keyframes scaleDown {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  @keyframes scaleDown {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+`;
