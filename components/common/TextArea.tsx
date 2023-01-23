@@ -16,28 +16,22 @@ type TextAreaPropsType = {
 };
 
 export default function TextArea({
-  id,
-  className,
   value,
-  onChange,
   placeholder = "필드를 입력해주세요.",
   width,
   height,
   label,
   helpText,
-  readOnly,
+  ...props
 }: TextAreaPropsType) {
   return (
     <LabelField>
       {label && <div className="label">{label}</div>}
       <StyledTextArea
-        id={id}
-        className={className}
         placeholder={placeholder}
-        onChange={onChange}
         value={value}
         style={{ width, height }}
-        readOnly={readOnly}
+        {...props}
       />
       {helpText && <div className="helpText">{helpText}</div>}
     </LabelField>

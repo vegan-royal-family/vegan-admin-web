@@ -26,17 +26,16 @@ type DropdownPropsTypes = {
 };
 
 export default function Dropdown({
-  id,
-  className,
   defaultValueId,
   options,
   onChange,
-  placeholder = "필드를 입력해주세요.",
-  width = "100%",
-  height,
   label,
+  placeholder = "옵션을 선택해주세요.",
+  width,
+  height,
   disabled = false,
   readOnly,
+  ...props
 }: DropdownPropsTypes) {
   const clickOutsideRef = useRef();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -58,17 +57,16 @@ export default function Dropdown({
       {label && <StyledLabel className="label">{label}</StyledLabel>}
       <div ref={clickOutsideRef} style={{ position: "relative", width }}>
         <StyledInput
-          id={id}
-          className={className}
-          placeholder={placeholder}
           width={width}
           height={height}
+          placeholder={placeholder}
           onClick={() => {
             if (readOnly || disabled) {
               return;
             }
             setIsDropdownOpen((value) => !value);
           }}
+          {...props}
         >
           {selectedId ? (
             <span className="selected-item">

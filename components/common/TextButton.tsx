@@ -17,19 +17,19 @@ export default function TextButton({
   type = "primary",
   size = "md",
   label,
-  disabled,
   //width,
   children,
+  ...props
 }: PropsWithChildren<TextButtonPropsType>) {
   const colorStyle = COLORS[type];
   const sizeStyle = SIZES[size];
 
   return (
     <StyledTextButton
-      disabled={disabled}
       colorStyle={colorStyle}
       sizeStyle={sizeStyle}
       typography={typography[size]}
+      {...props}
     >
       {label ?? children}
     </StyledTextButton>

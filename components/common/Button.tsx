@@ -20,19 +20,15 @@ type ButtonPropsType = {
 };
 
 export default function Button({
-  id,
-  className,
   type = "primary",
   size = "md",
   label,
   loading = false,
-  disabled,
   //width,
-  onClick,
-  style,
   prefixContent,
   suffixContent,
   children,
+  ...props
 }: PropsWithChildren<ButtonPropsType>) {
   const colorStyle = COLORS[type];
   const sizeStyle = SIZES[size];
@@ -45,15 +41,10 @@ export default function Button({
   return (
     <StyledButton
       type="button"
-      id={id}
-      className={className}
-      disabled={disabled || loading}
       colorStyle={colorStyle}
       sizeStyle={sizeStyle}
-      theme={theme}
       loading={loading}
-      onClick={onClick}
-      style={style}
+      {...props}
     >
       {loading ? (
         <>

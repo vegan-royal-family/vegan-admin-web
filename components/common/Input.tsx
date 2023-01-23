@@ -17,31 +17,25 @@ type InputPropsType = {
 };
 
 export default function Input({
-  id,
-  className,
   value,
-  onChange,
   placeholder = "필드를 입력해주세요.",
   width,
   height,
   label,
-  disabled = false,
-  readOnly = false,
   helpText,
+  disabled,
+  ...props
 }: InputPropsType): ReactElement {
   return (
     <LabelField disabled={disabled}>
       {label && <div className="label">{label}</div>}
       <StyledInput
-        id={id}
-        className={className}
         type="text"
         placeholder={placeholder}
-        onChange={onChange}
         value={value}
         style={{ width, height }}
         disabled={disabled}
-        readOnly={readOnly}
+        {...props}
       />
       {helpText && <div className="helpText">{helpText}</div>}
     </LabelField>
