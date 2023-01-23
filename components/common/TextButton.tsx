@@ -18,7 +18,7 @@ export default function TextButton({
   size = "md",
   label,
   disabled,
-  width,
+  //width,
   children,
 }: PropsWithChildren<TextButtonPropsType>) {
   const colorStyle = COLORS[type];

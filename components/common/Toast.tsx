@@ -2,17 +2,20 @@ import { ReactNode, ReactElement, useEffect } from "react";
 import styled from "@emotion/styled";
 import { css, SerializedStyles } from "@emotion/react";
 import theme from "styles/theme";
-import { fadeoutToRightAnimation, fadeinFromRightAnimation } from "styles/animation";
+import {
+  fadeoutToRightAnimation,
+  fadeinFromRightAnimation,
+} from "styles/animation";
 import Icon from "components/common/Icon";
 
-type ToastProps = {
-  type?: string;
+type ToastPropsType = {
+  type: "info" | "success" | "error";
   title: string;
   desc?: string;
   onClose: Function;
 };
 
-export default function Toast(props: ToastProps): ReactElement {
+export default function Toast(props: ToastPropsType): ReactElement {
   const { type = "info", title = "", desc = "", onClose } = props;
 
   let titleContent: ReactNode = title;
@@ -46,7 +49,7 @@ export default function Toast(props: ToastProps): ReactElement {
   useEffect(() => {
     setTimeout(() => {
       onClose();
-    }, 3000);
+    }, 2500);
   }, []);
 
   return (
@@ -98,7 +101,6 @@ const StyledToast = styled.div<{ typeStyle: SerializedStyles }>`
   animation: fadein 0.5s, fadeout 0.5s 2.5s forwards;
 `;
 
-// TODO: css 모듈에 theme 적용하는 법 찾아서 적용하기
 const infoStyle = css`
   background-color: ${theme.palette.colors.gray[800]};
   color: ${theme.palette.colors.basic["white"]};

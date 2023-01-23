@@ -4,11 +4,8 @@ import useOnClickOutside from "utils/useOnClickOutside";
 import { scaleUpAnimation, scaleDownAnimation } from "styles/animation";
 import { UserInfoType } from "types/user";
 
-export default function ProfileDropdown({
-  authValue,
-}: {
-  authValue: UserInfoType;
-}) {
+export default function ProfileDropdown(props: { authValue: UserInfoType }) {
+  const { authValue } = props;
   const { id, authorization, profileImage, name } = authValue;
   // TODO: defaultImage 교체 필요
   const defaultImageSrc =

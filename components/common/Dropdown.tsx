@@ -11,17 +11,18 @@ type OptionType = {
   name: string;
 };
 
-type DropdownTypes = {
+type DropdownPropsTypes = {
   id?: string;
   className?: string;
   defaultValueId?: number | string;
   options: Array<OptionType>;
-  onChange: (option: OptionType) => void;
+  onChange?: (option: OptionType) => void;
   placeholder?: string;
   width?: string | number;
   height?: string | number;
   label?: string;
   disabled?: boolean;
+  readOnly?: boolean;
 };
 
 export default function Dropdown({
@@ -35,13 +36,16 @@ export default function Dropdown({
   height,
   label,
   disabled = false,
-}: DropdownTypes) {
+  readOnly,
+}: DropdownPropsTypes) {
   const clickOutsideRef = useRef();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(defaultValueId);
 
   const onOptionClicked = (option: OptionType) => {
-    onChange(option);
+    if (typeof onChange === "function") {
+      onChange(option);
+    }
     setSelectedId(option.id);
     setIsDropdownOpen(false);
   };
@@ -59,7 +63,12 @@ export default function Dropdown({
           placeholder={placeholder}
           width={width}
           height={height}
-          onClick={() => setIsDropdownOpen((value) => !value)}
+          onClick={() => {
+            if (readOnly || disabled) {
+              return;
+            }
+            setIsDropdownOpen((value) => !value);
+          }}
         >
           {selectedId ? (
             <span className="selected-item">
@@ -161,8 +170,7 @@ const DropdownContainer = styled.div<{
   border-radius: 5px;
   box-sizing: border-box;
   margin-top: 4px;
-  box-shadow: rgb(0 0 0 / 20%) 0px 5px 5px -3px,
-    rgb(0 0 0 / 14%) 0px 8px 10px 1px, rgb(0 0 0 / 12%) 0px 3px 14px 2px;
+  box-shadow: 0px 2px 8px rgba(15, 23, 42, 0.25);
   width: ${(p) => p.width};
   visibility: ${(p) => (p.visible ? "visible" : "hidden")};
   animation: ${(p) =>
