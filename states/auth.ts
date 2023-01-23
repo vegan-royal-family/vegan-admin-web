@@ -1,16 +1,10 @@
 import { atom, selector } from "recoil";
 import { v1 } from "uuid";
-
-type UserInfo = {
-  id: number;
-  authorization: Array<string>;
-  profileImage: string;
-  name: string;
-};
+import { UserInfoType } from "types/user";
 
 const defaultSelector = selector({
   key: `authSelector/${v1()}`,
-  get: async ({ get }): Promise<UserInfo> => {
+  get: async ({ get }): Promise<UserInfoType> => {
     // TODO: 프로필 API로 데이터 가져오기
     return {
       profileImage: null,
