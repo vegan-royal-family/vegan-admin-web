@@ -12,9 +12,12 @@ type TextAreaPropsType = {
   height?: string | number;
   helpText?: string;
   label?: string;
+  readOnly?: boolean;
 };
 
 export default function TextArea({
+  id,
+  className,
   value,
   onChange,
   placeholder = "필드를 입력해주세요.",
@@ -22,17 +25,19 @@ export default function TextArea({
   height,
   label,
   helpText,
-  ...props
+  readOnly,
 }: TextAreaPropsType) {
   return (
     <LabelField>
       {label && <div className="label">{label}</div>}
       <StyledTextArea
+        id={id}
+        className={className}
         placeholder={placeholder}
         onChange={onChange}
         value={value}
         style={{ width, height }}
-        {...props}
+        readOnly={readOnly}
       />
       {helpText && <div className="helpText">{helpText}</div>}
     </LabelField>

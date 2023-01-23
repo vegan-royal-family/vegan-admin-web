@@ -4,6 +4,7 @@ import RightSheet from "components/common/RightSheet";
 import TextArea from "components/common/TextArea";
 import { MouseEvent } from "react";
 import Divider from "components/common/Divider";
+import Dropdown from "components/common/Dropdown";
 
 export default function MemberInactiveForm({
   visible,
@@ -22,7 +23,13 @@ export default function MemberInactiveForm({
       <GridItem>
         <FlexColItem>
           <Input width="100%" placeholder="이름을 입력하세요." label="닉네임" />
-          <Input width="100%" placeholder="정책을 선택하세요." label="종류" />
+          <Dropdown
+            width="100%"
+            placeholder="종류를 선택하세요."
+            label="종류"
+            options={[{ id: 1, name: "소속1" }]}
+            onChange={(option) => {}}
+          />
         </FlexColItem>
         <TextArea
           width="100%"

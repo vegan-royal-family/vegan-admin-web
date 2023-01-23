@@ -2,7 +2,7 @@ import { ChangeEvent, ReactElement } from "react";
 import styled from "@emotion/styled";
 import theme from "styles/theme";
 
-type InputTypes = {
+type InputPropsType = {
   id?: string;
   className?: string;
   value?: string;
@@ -12,10 +12,13 @@ type InputTypes = {
   height?: string | number;
   label?: string;
   disabled?: boolean;
+  readOnly?: boolean;
   helpText?: string;
 };
 
 export default function Input({
+  id,
+  className,
   value,
   onChange,
   placeholder = "필드를 입력해주세요.",
@@ -23,20 +26,22 @@ export default function Input({
   height,
   label,
   disabled = false,
+  readOnly = false,
   helpText,
-  ...props
-}: InputTypes): ReactElement {
+}: InputPropsType): ReactElement {
   return (
     <LabelField disabled={disabled}>
       {label && <div className="label">{label}</div>}
       <StyledInput
-        type={"text"}
+        id={id}
+        className={className}
+        type="text"
         placeholder={placeholder}
         onChange={onChange}
         value={value}
         style={{ width, height }}
         disabled={disabled}
-        {...props}
+        readOnly={readOnly}
       />
       {helpText && <div className="helpText">{helpText}</div>}
     </LabelField>

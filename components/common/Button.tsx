@@ -4,7 +4,7 @@ import { css, SerializedStyles } from "@emotion/react";
 import theme from "styles/theme";
 import CircleSpinner from "./Spinner";
 
-type ButtonProps = {
+type ButtonPropsType = {
   id?: string;
   className?: string;
   type?: "primary" | "secondary" | "tertiary";
@@ -12,7 +12,7 @@ type ButtonProps = {
   label?: string;
   loading?: boolean;
   disabled?: boolean;
-  width?: string | number;
+  //width?: string | number;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => any;
   style?: any;
   prefixContent?: ReactNode;
@@ -20,17 +20,20 @@ type ButtonProps = {
 };
 
 export default function Button({
+  id,
+  className,
   type = "primary",
   size = "md",
   label,
   loading = false,
   disabled,
-  width,
-  children,
+  //width,
+  onClick,
+  style,
   prefixContent,
   suffixContent,
-  ...props
-}: PropsWithChildren<ButtonProps>) {
+  children,
+}: PropsWithChildren<ButtonPropsType>) {
   const colorStyle = COLORS[type];
   const sizeStyle = SIZES[size];
 
@@ -42,12 +45,15 @@ export default function Button({
   return (
     <StyledButton
       type="button"
+      id={id}
+      className={className}
       disabled={disabled || loading}
       colorStyle={colorStyle}
       sizeStyle={sizeStyle}
       theme={theme}
       loading={loading}
-      {...props}
+      onClick={onClick}
+      style={style}
     >
       {loading ? (
         <>

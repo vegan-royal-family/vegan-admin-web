@@ -7,6 +7,7 @@ import RightSheet from "components/common/RightSheet";
 import Img from "assets/member1.png";
 import { MouseEvent } from "react";
 import Divider from "components/common/Divider";
+import Dropdown from "components/common/Dropdown";
 
 export default function OperatorForm({
   visible,
@@ -46,11 +47,26 @@ export default function OperatorForm({
         </div>
         <FlexColItem>
           <Input width="100%" placeholder="이름을 입력하세요." label="이름" />
-          <Input width="100%" placeholder="소속을 선택하세요." label="소속" />
+          <Dropdown
+            width="100%"
+            placeholder="소속을 선택하세요."
+            label="소속"
+            options={[{ id: 1, name: "소속" }]}
+          />
         </FlexColItem>
         <FlexColItem>
-          <Input width="100%" placeholder="직책을 선택하세요." label="직책" />
-          <Input width="100%" placeholder="권한을 선택하세요." label="권한" />
+          <Dropdown
+            width="100%"
+            placeholder="직책을 선택하세요."
+            label="직책"
+            options={[{ id: 1, name: "직책" }]}
+          />
+          <Dropdown
+            width="100%"
+            placeholder="권한을 선택하세요."
+            label="권한"
+            options={[{ id: 1, name: "권한" }]}
+          />
         </FlexColItem>
         <TextArea
           width="100%"
