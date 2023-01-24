@@ -15,7 +15,7 @@ const PageWrapper = styled.div`
   flex: 1;
 `;
 
-export default function MemberPage() {
+export default function MemberPage({ data }) {
   const [popupVisible, setPopupVisible] = useState<{
     type: "" | "history" | "warning" | "inactive";
     visible: boolean;
@@ -116,20 +116,20 @@ export default function MemberPage() {
     },
   ];
 
-  const getData = (len) => {
-    return range(len).map((id) => {
-      return {
-        id: id,
-        nickname: `꽈뚜루빠뚜루밥밥디라라-${id}`,
-        vegetarianType: "폴로",
-        gender: "male",
-        birth: "2001-04-11",
-        snsType: "카카오",
-        createdAt: "2022-12-31 23:47:58",
-        warningCount: 0,
-      };
-    });
-  };
+  // const getData = (len) => {
+  //   return range(len).map((id) => {
+  //     return {
+  //       id: id,
+  //       nickname: `꽈뚜루빠뚜루밥밥디라라-${id}`,
+  //       vegetarianType: "폴로",
+  //       gender: "male",
+  //       birth: "2001-04-11",
+  //       snsType: "카카오",
+  //       createdAt: "2022-12-31 23:47:58",
+  //       warningCount: 0,
+  //     };
+  //   });
+  // };
 
   return (
     <Layout>
@@ -152,7 +152,7 @@ export default function MemberPage() {
         <Table
           id="member-management-table"
           columns={columns}
-          data={getData(79)}
+          data={data}
           fetchData={(sortOption) => {
             // TODO: 정렬 UI 테스트를 위해 임시로 구현해놓은 것. 수정해야함.
             const order = sortOption?.isDesc ? "desc" : "asc";
@@ -173,4 +173,24 @@ export default function MemberPage() {
       </PageWrapper>
     </Layout>
   );
+}
+
+export function getServerSideProps(context) {
+  const res = range(50).map((id) => {
+    return {
+      id: id,
+      nickname: `꽈뚜루빠뚜루밥밥디라라-${id}`,
+      vegetarianType: "폴로",
+      gender: "male",
+      birth: "2001-04-11",
+      snsType: "카카오",
+      createdAt: "2022-12-31 23:47:58",
+      warningCount: 0,
+    };
+  });
+  const data = JSON.stringify(res);
+
+  return {
+    props: { data }, // will be passed to the page component as props
+  };
 }
