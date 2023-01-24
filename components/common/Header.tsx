@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { useRecoilValue } from "recoil";
-import { authState } from "states/auth";
+//import { useRecoilValue } from "recoil";
+//import { authState } from "states/auth";
 import Image from "next/image";
 import Logo from "assets/Logo/Logo.png";
 import theme from "styles/theme";
@@ -12,7 +12,7 @@ type MenuType = Array<{ route: string; name: string }>;
 
 export default function Header(props: { menus: MenuType }) {
   const { menus } = props;
-  const authValue = useRecoilValue(authState);
+  //const authValue = useRecoilValue(authState);
   const router = useRouter();
 
   return (
@@ -27,7 +27,7 @@ export default function Header(props: { menus: MenuType }) {
             </Link>
           );
         })}
-        {authValue?.id && <ProfileDropdown authValue={authValue} />}
+        {/* {authValue?.id && <ProfileDropdown authValue={authValue} />} */}
       </MenuList>
     </StyledHeader>
   );
