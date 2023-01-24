@@ -152,7 +152,7 @@ export default function MemberPage({ data }) {
         <Table
           id="member-management-table"
           columns={columns}
-          data={data}
+          data={JSON.parse(data)}
           fetchData={(sortOption) => {
             // TODO: 정렬 UI 테스트를 위해 임시로 구현해놓은 것. 수정해야함.
             const order = sortOption?.isDesc ? "desc" : "asc";

@@ -1,4 +1,5 @@
 module.exports = {
+  staticPageGenerationTimeout: 1000,
   reactStrictMode: true,
   webpack: (config) => {
     config.module.rules.push({
