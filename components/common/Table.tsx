@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { useRowSelect, usePagination, useTable } from "react-table";
+import { useRowSelect, usePagination, useTable, Column } from "react-table";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { useTheme } from "@emotion/react";
 import Icon from "components/common/Icon";
@@ -17,11 +17,14 @@ type SortOptionType = {
 
 type TablePropsType = {
   id: string;
-  columns: Array<any>;
-  data: Array<any>;
+  columns: Array<Column<object>>;
+  data: Array<object>;
   disablePagination?: boolean;
   useSelection?: boolean;
-  fetchData?: (sortOption?: SortOptionType, filterOption?: any) => Array<any>;
+  fetchData?: (
+    sortOption?: SortOptionType,
+    filterOption?: object
+  ) => Array<object>;
 };
 
 const SortIcon = ({ isSortColumn, sortOption }) => {
@@ -45,7 +48,7 @@ export default function Table({
 }: TablePropsType) {
   const theme = useTheme();
 
-  const [tableData, setTableData] = useState(data);
+  const [tableData, setTableData] = useState<Array<object>>(data);
   const [sortOption, setSortOption] = useState<SortOptionType>({
     isDesc: false,
     id: null,
@@ -137,7 +140,7 @@ export default function Table({
               {headerGroups.map((headerGroup) => {
                 return (
                   <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map((column: any) => {
+                    {headerGroup.headers.map((column) => {
                       let header = column.render("Header");
                       if (typeof column?.headerRender === "function") {
                         header = column?.headerRender();
@@ -193,7 +196,7 @@ export default function Table({
                 prepareRow(row);
                 return (
                   <tr {...row.getRowProps()}>
-                    {row.cells.map((cell: any) => {
+                    {row.cells.map((cell) => {
                       let cellData = cell.render("Cell");
                       if (typeof cell.column?.cellRender === "function") {
                         const rowValues = cell.row?.original;
