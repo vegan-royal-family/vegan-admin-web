@@ -24,9 +24,6 @@ type TablePropsType = {
   fetchData?: (sortOption?: SortOptionType, filterOption?: any) => Array<any>;
 };
 
-// TODO: useTable에서 가져오는 값 타입 정의
-type TableHookPropsType = {};
-
 const SortIcon = ({ isSortColumn, sortOption }) => {
   // TODO: 정렬 아이콘 바꿔야 함
   return (
@@ -140,7 +137,7 @@ export default function Table({
               {headerGroups.map((headerGroup) => {
                 return (
                   <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map((column) => {
+                    {headerGroup.headers.map((column: any) => {
                       let header = column.render("Header");
                       if (typeof column?.headerRender === "function") {
                         header = column?.headerRender();
@@ -196,7 +193,7 @@ export default function Table({
                 prepareRow(row);
                 return (
                   <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
+                    {row.cells.map((cell: any) => {
                       let cellData = cell.render("Cell");
                       if (typeof cell.column?.cellRender === "function") {
                         const rowValues = cell.row?.original;
