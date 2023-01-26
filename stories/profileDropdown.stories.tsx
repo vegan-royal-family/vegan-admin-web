@@ -16,9 +16,9 @@ const Template = (args) => {
 export const DefaultProfileDropdown = Template.bind({});
 DefaultProfileDropdown.args = {
   authValue: {
-    id: 1,
-    authorization: [],
+    userId: "nickname",
     profileImage: null,
     name: "김뫄뫄",
+    email: "vegan@gmail.com",
   },
 };
