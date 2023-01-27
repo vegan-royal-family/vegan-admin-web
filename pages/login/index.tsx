@@ -1,10 +1,10 @@
 import React, { useState, ChangeEvent } from "react";
-import { useSetRecoilState } from "recoil";
 import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
 import { useRouter } from "next/router";
-import { managerLogin } from "apis/auth";
-import { authState } from "states/auth";
+// import { managerLogin } from "apis/auth";
+import { authSelector } from "states/auth";
+import { useRecoilRefresher_UNSTABLE } from "recoil";
 import Input from "components/common/Input";
 import Button from "components/common/Button";
 import Toast from "components/common/Toast";
@@ -40,8 +40,8 @@ const FormContainer = styled.div`
 export default function LoginPage() {
   const theme = useTheme();
   const router = useRouter();
+  const refreshAuthState = useRecoilRefresher_UNSTABLE(authSelector);
 
-  const setAuthProfileState = useSetRecoilState(authState);
   const [loginData, setLoginDataState] = useState<{
     id: string;
     password: string;
@@ -63,21 +63,13 @@ export default function LoginPage() {
   const loginHandler = async () => {
     try {
       // TODO: id, password 값 검증을 해야할까?
-      //const res = await managerLogin(loginData);
+      // await managerLogin(loginData);
 
-      //const profileData = res?.data;
-      const profileData = {
-        id: 1,
-        name: "사용자1",
-        profileImage: null,
-        authorization: null,
-      };
-
-      // 사용자 프로필 데이터 저장
-      setAuthProfileState(profileData);
+      // 로그인 성공 후, authSelector의 값 다시 로드
+      refreshAuthState();
 
       // 메인 페이지로 리다이렉션
-      router.replace("/");
+      router.replace("/restaurant");
     } catch (e) {
       // 에러 토스트 표시
       setErrorMessage("로그인에 실패하였습니다.");

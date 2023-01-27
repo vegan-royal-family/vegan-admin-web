@@ -1,4 +1,4 @@
-import ProfileDropdown from "components/common/ProfileDropdown";
+import ProfileDropdown from "components/mypage/ProfileDropdown";
 
 export default {
   title: "components/ProfileDropdown",

@@ -1,19 +1,26 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import Link from "next/link";
-//import { useRecoilValue } from "recoil";
-//import { authState } from "states/auth";
+import { useRecoilValueLoadable } from "recoil";
+import { authSelector } from "states/auth";
 import Image from "next/image";
 import Logo from "assets/Logo/Logo.png";
 import theme from "styles/theme";
-import ProfileDropdown from "./ProfileDropdown";
+import ProfileDropdown from "../mypage/ProfileDropdown";
 
 type MenuType = Array<{ route: string; name: string }>;
 
 export default function Header(props: { menus: MenuType }) {
   const { menus } = props;
-  //const authValue = useRecoilValue(authState);
   const router = useRouter();
+
+  const authValueLoadable = useRecoilValueLoadable(authSelector);
+  let authValue = null;
+  switch (authValueLoadable.state) {
+    case "hasValue":
+      authValue = authValueLoadable.contents;
+      break;
+  }
 
   return (
     <StyledHeader>
@@ -27,8 +34,8 @@ export default function Header(props: { menus: MenuType }) {
             </Link>
           );
         })}
-        {/* {authValue?.id && <ProfileDropdown authValue={authValue} />} */}
       </MenuList>
+      {authValue?.userId && <ProfileDropdown authValue={authValue} />}
     </StyledHeader>
   );
 }
