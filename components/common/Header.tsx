@@ -7,6 +7,8 @@ import Image from "next/image";
 import Logo from "assets/Logo/Logo.png";
 import theme from "styles/theme";
 import ProfileDropdown from "../mypage/ProfileDropdown";
+import { useEffect, useState } from "react";
+import { UserInfoType } from "types/user";
 
 type MenuType = Array<{ route: string; name: string }>;
 
@@ -15,16 +17,19 @@ export default function Header(props: { menus: MenuType }) {
   const router = useRouter();
 
   const authValueLoadable = useRecoilValueLoadable(authSelector);
-  let authValue = null;
-  switch (authValueLoadable.state) {
-    case "hasValue":
-      authValue = authValueLoadable.contents;
-      break;
-  }
+  const [authValue, setAuthValue] = useState<UserInfoType>(null);
+
+  useEffect(() => {
+    switch (authValueLoadable.state) {
+      case "hasValue":
+        setAuthValue(authValueLoadable.contents);
+        break;
+    }
+  }, [authValueLoadable]);
 
   return (
     <StyledHeader>
-      <Image src={Logo.src} alt="어쩌다보니비건 로고" width={165} height={24} />
+      <Image src={Logo.src} alt="어쩌다보니비건 로고" width={200} height={28} />
       <MenuList>
         {menus.map((item) => {
           const isSelected = router.pathname.includes(item.route);
@@ -35,7 +40,7 @@ export default function Header(props: { menus: MenuType }) {
           );
         })}
       </MenuList>
-      {authValue?.userId && <ProfileDropdown authValue={authValue} />}
+      <ProfileDropdown authValue={authValue} />
     </StyledHeader>
   );
 }

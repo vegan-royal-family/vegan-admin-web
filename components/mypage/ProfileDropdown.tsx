@@ -13,7 +13,6 @@ export default function ProfileDropdown(props: { authValue: UserInfoType }) {
   const dropdownRef = useRef();
 
   const { authValue } = props;
-  const { userId, email, profileImage, name } = authValue;
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [openMyPagePopup, setOpenMyPagePopup] = useState(false);
 
@@ -42,7 +41,9 @@ export default function ProfileDropdown(props: { authValue: UserInfoType }) {
       >
         <StyledProfileBox
           size="44px"
-          src={profileImage ? profileImage : defaultImageSrc}
+          src={
+            authValue?.profileImage ? authValue?.profileImage : defaultImageSrc
+          }
           onError={(e: any) => {
             e.target.src = defaultImageSrc;
           }}
@@ -50,17 +51,21 @@ export default function ProfileDropdown(props: { authValue: UserInfoType }) {
         />
         <DropdownContainer visible={isDropdownOpen}>
           <div className="profile-content">
-            <span className="id-field">{userId ?? ""}</span>
+            <span className="id-field">{authValue?.userId ?? ""}</span>
             <StyledProfileBox
               size="64px"
-              src={profileImage ? profileImage : defaultImageSrc}
+              src={
+                authValue?.profileImage
+                  ? authValue?.profileImage
+                  : defaultImageSrc
+              }
               onError={(e: any) => {
                 e.target.src = defaultImageSrc;
               }}
               style={{ cursor: "auto" }}
             />
-            <span className="nickname-field">{name ?? ""}</span>
-            <span className="email-field">{email ?? ""}</span>
+            <span className="nickname-field">{authValue?.name ?? ""}</span>
+            <span className="email-field">{authValue?.email ?? ""}</span>
           </div>
           <div className="menu-content">
             <div
