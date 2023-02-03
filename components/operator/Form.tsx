@@ -1,13 +1,12 @@
 import dayjs from "dayjs";
 import styled from "@emotion/styled";
-import Button from "components/common/Button";
 import Input from "components/common/Input";
 import TextArea from "components/common/TextArea";
 import RightSheet from "components/common/RightSheet";
-import Img from "assets/member1.png";
 import { MouseEvent } from "react";
 import Divider from "components/common/Divider";
 import Dropdown from "components/common/Dropdown";
+import ProfileUploader from "components/common/ProfileUploader";
 
 export default function OperatorForm({
   visible,
@@ -24,27 +23,10 @@ export default function OperatorForm({
       onSave={() => {}}
     >
       <GridItem>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "100%",
-            gap: 14,
-          }}
-        >
-          <ImgBox src={Img.src} alt="아바타" />
-          <div
-            style={{
-              display: "flex",
-              gap: 14,
-              flexDirection: "column",
-            }}
-          >
-            <Button size="sm" type="tertiary" label="수정" />
-            <Button size="sm" type="secondary" label="삭제" />
-          </div>
-        </div>
+        <ProfileUploader
+          id="operator-profile-uploader"
+          onImageChanged={() => {}}
+        />
         <FlexColItem>
           <Input width="100%" placeholder="이름을 입력하세요." label="이름" />
           <Dropdown
