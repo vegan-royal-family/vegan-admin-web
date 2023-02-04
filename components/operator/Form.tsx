@@ -113,11 +113,6 @@ const GridItem = styled.div`
   row-gap: 22px;
 `;
 
-const ImgBox = styled.img`
-  width: 180px;
-  height: 180px;
-`;
-
 const BottomItem = styled.div`
   flex: 1;
   width: 100%;
