@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useRowSelect, usePagination, useTable, Column } from "react-table";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import { useTheme } from "@emotion/react";
 import Icon from "components/common/Icon";
 import Pagination from "./Pagination";
 import Checkbox from "./Checkbox";
+import theme from "styles/theme";
 
 // typeFilterButtonOptions
 // searchOptions
@@ -46,8 +46,6 @@ export default function Table({
   useSelection = false,
   fetchData,
 }: TablePropsType) {
-  const theme = useTheme();
-
   const [tableData, setTableData] = useState<Array<object>>(data);
   const [sortOption, setSortOption] = useState<SortOptionType>({
     isDesc: false,
@@ -132,7 +130,7 @@ export default function Table({
   }, [sortOption]);
 
   return (
-    <TableStyles theme={theme}>
+    <TableStyles>
       <PerfectScrollbar>
         <div className="table-wrap">
           <table {...getTableProps()}>
@@ -243,7 +241,7 @@ const TableStyles = styled.div<{ tableMaxHeight?: string | number }>`
   /* This is required to make the table full-width */
   display: block;
   max-width: 100%;
-  border: 1px solid ${(props) => props.theme.palette.colors.gray[300]};
+  border: 1px solid ${theme.palette.colors.gray[300]};
 
   /* This will make the table scrollable when it gets too small */
   .table-wrap {
@@ -270,8 +268,8 @@ const TableHeaderTh = styled.th<{
   headerAlign?: string;
   width?: string | number;
 }>`
-  ${(p) => p.theme.typography.body3}
-  ${(p) => p.theme.typography.weightMedium}
+  ${theme.typography.body3}
+  ${theme.typography.weightMedium}
 
   position: sticky;
   top: 0;
@@ -281,7 +279,7 @@ const TableHeaderTh = styled.th<{
   white-space: nowrap;
   box-sizing: border-box;
   background-color: #fff;
-  border-bottom: 1px solid ${(p) => p.theme.palette.colors.gray[300]};
+  border-bottom: 1px solid ${theme.palette.colors.gray[300]};
   width: ${(p) => p?.width};
 
   span {
@@ -300,10 +298,10 @@ const TableHeaderTh = styled.th<{
     }
     &:hover {
       cursor: pointer;
-      color: ${(p) => p.theme.palette.colors.gray[500]};
+      color: ${theme.palette.colors.gray[500]};
       svg {
         path {
-          fill: ${(p) => p.theme.palette.colors.gray[500]};
+          fill: ${theme.palette.colors.gray[500]};
         }
       }
     }
@@ -327,13 +325,13 @@ const TableBodyTd = styled.td<{
   cellAlign?: string;
   width?: string | number;
 }>`
-  ${(p) => p.theme.typography.body3}
+  ${theme.typography.body3}
 
   margin: 0;
   padding: 10px;
   box-sizing: border-box;
   white-space: nowrap;
-  border-bottom: 1px solid ${(p) => p.theme.palette.colors.gray[300]};
+  border-bottom: 1px solid ${theme.palette.colors.gray[300]};
   width: ${(p) => p?.width};
 
   span {

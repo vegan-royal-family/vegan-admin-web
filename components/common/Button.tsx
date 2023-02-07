@@ -12,7 +12,6 @@ type ButtonPropsType = {
   label?: string;
   loading?: boolean;
   disabled?: boolean;
-  //width?: string | number;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => any;
   style?: any;
   prefixContent?: ReactNode;
@@ -24,7 +23,6 @@ export default function Button({
   size = "md",
   label,
   loading = false,
-  //width,
   prefixContent,
   suffixContent,
   children,

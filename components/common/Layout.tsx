@@ -2,8 +2,9 @@ import styled from "@emotion/styled";
 import { PropsWithChildren, ReactNode } from "react";
 import Header from "./Header";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import { MenuType } from "types/component";
 
-const menus = [
+const menus: MenuType = [
   { route: "/restaurant", name: "채식 식당 관리" },
   // { route: "/recipe", name: "채식 레시피 관리" },
   { route: "/member", name: "회원 관리" },

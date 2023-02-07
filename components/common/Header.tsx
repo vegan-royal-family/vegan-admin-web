@@ -9,8 +9,7 @@ import theme from "styles/theme";
 import ProfileDropdown from "../mypage/ProfileDropdown";
 import { useEffect, useState } from "react";
 import { UserInfoType } from "types/user";
-
-type MenuType = Array<{ route: string; name: string }>;
+import { MenuType } from "types/component";
 
 export default function Header(props: { menus: MenuType }) {
   const { menus } = props;

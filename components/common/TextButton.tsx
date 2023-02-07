@@ -10,14 +10,12 @@ type TextButtonPropsType = {
   size?: "sm" | "md" | "lg";
   label?: string;
   disabled?: boolean;
-  width?: string | number;
 };
 
 export default function TextButton({
   type = "primary",
   size = "md",
   label,
-  //width,
   children,
   ...props
 }: PropsWithChildren<TextButtonPropsType>) {

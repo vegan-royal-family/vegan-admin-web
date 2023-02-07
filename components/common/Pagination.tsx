@@ -1,7 +1,8 @@
 import range from "utils/range";
 import styled from "@emotion/styled";
-import { css, useTheme } from "@emotion/react";
+import { css } from "@emotion/react";
 import Icon from "components/common/Icon";
+import theme from "styles/theme";
 
 const defaultPageGroupCount = 4;
 const defaultPageSizeOptions = [10, 20, 30, 40, 50];
@@ -88,9 +89,6 @@ export default function Pagination(props) {
     setPageSize,
     pageSizeOptions = defaultPageSizeOptions,
   } = props;
-
-  const theme = useTheme();
-
   const isArrangeView = pageCount <= defaultPageGroupCount + 3;
   const lastPageIndex = pageCount - 1;
   const prevPageIndexList = [];
@@ -120,7 +118,7 @@ export default function Pagination(props) {
   }
 
   return (
-    <PaginationWrapper theme={theme}>
+    <PaginationWrapper>
       <div style={{ flex: 1 }}>
         <span style={{ paddingRight: 16 }}>
           Page {pageIndex + 1} of {pageOptions.length}
@@ -198,20 +196,20 @@ const PaginationWrapper = styled.div`
   display: flex;
   align-items: center;
   padding: 12px;
-  border-top: 1px solid ${(p) => p.theme.palette.colors.gray[300]};
-  ${(p) => p.theme.typography.body3}
+  border-top: 1px solid ${theme.palette.colors.gray[300]};
+  ${theme.typography.body3}
 
   .indexBtnGroup {
     display: flex;
     align-items: center;
-    ${(p) => p.theme.typography.weightMedium}
+    ${theme.typography.weightMedium}
     & > button {
       ${pageIndexStyle}
     }
 
     .selectedPageIndex {
       ${pageIndexStyle}
-      background: ${(p) => p.theme.palette.colors.gray[600]};
+      background: ${theme.palette.colors.gray[600]};
       color: #fff;
       border-radius: 50%;
       margin: 0 2px;

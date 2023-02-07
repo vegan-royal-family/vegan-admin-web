@@ -1,12 +1,12 @@
 import React, { useState, ChangeEvent } from "react";
 import styled from "@emotion/styled";
-import { useTheme } from "@emotion/react";
 import { useRecoilRefresher_UNSTABLE } from "recoil";
 import { useRouter } from "next/router";
 import { authSelector } from "states/auth";
 import Input from "components/common/Input";
 import Button from "components/common/Button";
 import Toast from "components/common/Toast";
+import theme from "styles/theme";
 // import { managerLogin } from "apis/auth";
 
 const LoginPageWrapper = styled.div`
@@ -16,7 +16,7 @@ const LoginPageWrapper = styled.div`
   padding: 30px;
   .title {
     padding: 20px;
-    ${(p) => p.theme.typography?.heading5}
+    ${theme.typography?.heading5}
   }
   #id_field,
   #pwd_field {
@@ -38,7 +38,6 @@ const FormContainer = styled.div`
 `;
 
 export default function LoginPage() {
-  const theme = useTheme();
   const router = useRouter();
   const refreshAuthState = useRecoilRefresher_UNSTABLE(authSelector);
 
@@ -88,7 +87,7 @@ export default function LoginPage() {
           }}
         />
       )}
-      <LoginPageWrapper theme={theme}>
+      <LoginPageWrapper>
         <div style={{ height: 100 }}></div>
         <div className="title">관리자 로그인</div>
         <FormContainer>
