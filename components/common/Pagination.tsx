@@ -161,7 +161,7 @@ export default function Pagination(props) {
       >
         <Icon icon="right" size="sm" />
       </button>
-      <span style={{ marginLeft: 16 }}>
+      {/* <span style={{ marginLeft: 16 }}>
         Go to page
         <input
           type="number"
@@ -172,7 +172,7 @@ export default function Pagination(props) {
           }}
           style={{ marginLeft: 8, width: "40px" }}
         />
-      </span>
+      </span> */}
     </PaginationWrapper>
   );
 }
@@ -181,12 +181,12 @@ const pageIndexStyle = css`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   background: transparent;
   border: none;
   padding: 0;
-  margin: 0 2px;
+  margin: 0 4px;
   border-radius: 50%;
   cursor: pointer;
   user-select: none;
@@ -195,13 +195,13 @@ const pageIndexStyle = css`
 const PaginationWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 12px;
-  border-top: 1px solid ${theme.palette.colors.gray[300]};
+  padding: 16px;
   ${theme.typography.body3}
 
   .indexBtnGroup {
     display: flex;
     align-items: center;
+    margin: 0 4px;
     ${theme.typography.weightMedium}
     & > button {
       ${pageIndexStyle}
@@ -211,9 +211,6 @@ const PaginationWrapper = styled.div`
       ${pageIndexStyle}
       background: ${theme.palette.colors.gray[600]};
       color: #fff;
-      border-radius: 50%;
-      margin: 0 2px;
-      user-select: none;
       cursor: auto;
     }
   }

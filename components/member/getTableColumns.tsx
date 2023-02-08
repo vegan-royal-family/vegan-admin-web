@@ -10,14 +10,14 @@ const getTableColumns = (onPopupOpen: Function) => {
       Header: "유형",
       accessor: "vegetarianType",
       options: {
-        width: "80px",
+        width: "100px",
       },
     },
     {
       Header: "성별",
       accessor: "gender",
       options: {
-        width: "80px",
+        width: "100px",
       },
     },
     {
@@ -31,7 +31,7 @@ const getTableColumns = (onPopupOpen: Function) => {
       Header: "SNS",
       accessor: "snsType",
       options: {
-        width: "80px",
+        width: "100px",
       },
     },
     {
@@ -75,7 +75,7 @@ const getTableColumns = (onPopupOpen: Function) => {
         );
       },
       options: {
-        width: "150px",
+        width: "160px",
         headerAlign: "center",
         cellAlign: "center",
       },

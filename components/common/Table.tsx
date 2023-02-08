@@ -241,7 +241,6 @@ const TableStyles = styled.div<{ tableMaxHeight?: string | number }>`
   /* This is required to make the table full-width */
   display: block;
   max-width: 100%;
-  border: 1px solid ${theme.palette.colors.gray[300]};
 
   /* This will make the table scrollable when it gets too small */
   .table-wrap {
@@ -249,7 +248,7 @@ const TableStyles = styled.div<{ tableMaxHeight?: string | number }>`
     max-width: 100%;
     // TODO: Row가 10개 이상 보일 때 y 스크롤 되도록 설정. 추후 수정 될 수 있음.
     max-height: ${(props) =>
-      props.tableMaxHeight ? props.tableMaxHeight : "510px"};
+      props.tableMaxHeight ? props.tableMaxHeight : "565px"};
   }
 
   table {
@@ -257,9 +256,21 @@ const TableStyles = styled.div<{ tableMaxHeight?: string | number }>`
     border-spacing: 0;
   }
 
-  tbody tr:last-child {
-    & > td {
-      border-bottom: none !important;
+  thead {
+    th:not(:last-child) {
+      //position: relative;
+      & > span {
+        &::before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          inset-inline-end: 0;
+          width: 1px;
+          height: 1.6rem;
+          transform: translateY(-50%);
+          background-color: ${theme.palette.colors.gray[300]};
+        }
+      }
     }
   }
 `;
@@ -275,10 +286,10 @@ const TableHeaderTh = styled.th<{
   top: 0;
   z-index: 2;
   margin: 0;
-  padding: 10px;
+  padding: 16px;
   white-space: nowrap;
   box-sizing: border-box;
-  background-color: #fff;
+  background: ${theme.palette.colors.gray[100]};
   border-bottom: 1px solid ${theme.palette.colors.gray[300]};
   width: ${(p) => p?.width};
 
@@ -328,7 +339,7 @@ const TableBodyTd = styled.td<{
   ${theme.typography.body3}
 
   margin: 0;
-  padding: 10px;
+  padding: 12px 16px;
   box-sizing: border-box;
   white-space: nowrap;
   border-bottom: 1px solid ${theme.palette.colors.gray[300]};
